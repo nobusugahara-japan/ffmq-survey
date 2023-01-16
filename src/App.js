@@ -8,14 +8,17 @@ function App() {
                     "不安なことが多いですか？"]
 
   const [val, setVal] = useState("瞑想は毎日行いますか");
+  const [transition, setTransition] = useState(true);
 
-  const handleChange = (e) => {
+  const handleChange = ((e) => {
     setVal(e.target.value);
-    setTimeout(() => {
-      setQuestionState(questionState+1);
-      setVal("")
-    }, 500);
-  };
+    setTransition(false);
+    setTimeout(()=>{
+        setTransition(true);
+        setQuestionState(questionState+1);
+        setVal("")
+      },500)
+    });
 
   const [questionState, setQuestionState] = useState(-1)
 
@@ -30,7 +33,7 @@ function App() {
     console.log(val)
   }
 
-  console.log(questionState);
+  console.log(transition);
 
   if (questionState<0){
     return(
@@ -48,7 +51,7 @@ function App() {
       >確定</button>
     </div>
   )}
-  else{
+  else if (transition===true){
       return (
         <div className="App">
           <div>
@@ -75,6 +78,10 @@ function App() {
           </div>
         </div>
       );
+    } else {
+      return(
+        <h3 className="App">{questionState+2} 問目へ</h3>
+      )
     }
 }
 export default App;
