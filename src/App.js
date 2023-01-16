@@ -2,8 +2,10 @@ import './App.css';
 import { useState } from "react";
 
 function App() {
-  const answers = ["アイテム１", "アイテム２", "アイテム３", "アイテム４"];
-  const questions = ["今日の気分はどうですか?", "明日の予定は何ですか？"]
+  const answers = ["ほとんどあてはまる", "少しあてはまる", "ほとんどあてはまらない", "全く当てはまらない"];
+  const questions = ["瞑想は毎日行いますか?", "瞑想すると気分が良くなりますか？",
+                    "イライラすることが多いですか？", "自分が怒っている時にその感情に気付きますか？",
+                    "不安なことが多いですか？"]
   const [val, setVal] = useState("アイテム1");
   const handleChange = (e) => {
     setVal(e.target.value);
