@@ -1,11 +1,12 @@
 import './App.css';
 import { useState } from "react";
+import RaderChart from "./Chart";
 
 function App() {
   const answers = ["ほとんどあてはまる", "少しあてはまる", "ほとんどあてはまらない", "全く当てはまらない"];
-  const questions = ["瞑想は毎日行いますか?", "瞑想すると気分が良くなりますか？",
-                    "イライラすることが多いですか？", "自分が怒っている時にその感情に気付きますか？",
-                    "不安なことが多いですか？"]
+  const questions = ["1.瞑想は毎日行いますか?", "2.瞑想すると気分が良くなりますか？",
+                    "3.イライラすることが多いですか？", "4.自分が怒っている時にその感情に気付きますか？",
+                    "5.不安なことが多いですか？"]
 
   const [val, setVal] = useState("瞑想は毎日行いますか");
   const [transition, setTransition] = useState(true);
@@ -41,7 +42,7 @@ function App() {
   if (questionState<0){
     return(
       <div className="App">
-        <h2>サーベーを開始してください</h2>
+        <h2>サーベー開始! １問目へ</h2>
             <button onClick={nextPage}>開始</button>
       </div>
     )
@@ -52,6 +53,7 @@ function App() {
       <button
         onClick={fixResult}
       >最初に戻る</button>
+    <RaderChart/>
     </div>
   )}
   else if (transition===true){
@@ -77,9 +79,13 @@ function App() {
         </div>
       );
     } else {
+      if (questionState<=3){
       return(
         <h3 className="App">{questionState+2} 問目へ</h3>
-      )
+      )} else if (questionState===4){
+        return(
+        <h3 className="App">結果の表示</h3>
+      )};
     }
 }
 export default App;
