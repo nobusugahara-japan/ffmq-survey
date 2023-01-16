@@ -12,12 +12,14 @@ function App() {
 
   const handleChange = ((e) => {
     setVal(e.target.value);
+    setTimeout(()=>{
     setTransition(false);
+      },500);
     setTimeout(()=>{
         setTransition(true);
         setQuestionState(questionState+1);
         setVal("")
-      },500)
+      },1000);
     });
 
   const [questionState, setQuestionState] = useState(-1)
@@ -30,6 +32,7 @@ function App() {
   }
 
   const fixResult = () =>{
+    setQuestionState(-1);
     console.log(val)
   }
 
@@ -39,16 +42,16 @@ function App() {
     return(
       <div className="App">
         <h2>サーベーを開始してください</h2>
-            <button onClick={nextPage}>進む</button>
+            <button onClick={nextPage}>開始</button>
       </div>
     )
   } else if (questionState===5){
     return(
     <div className="App">
-      <h2>確定してよろしいですか？</h2>
+      <h2>終了しました!お疲れ様でした</h2>
       <button
         onClick={fixResult}
-      >確定</button>
+      >最初に戻る</button>
     </div>
   )}
   else if (transition===true){
@@ -70,11 +73,6 @@ function App() {
                 </div>
               );
             })}
-          </div>
-          <div className="App">
-            <div className="inner">
-              <button onClick={backPage}>戻る</button>
-            </div>
           </div>
         </div>
       );
