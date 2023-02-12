@@ -24,6 +24,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
+                "Ffmq2Data": {
+                    "name": "Ffmq2Data",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -70,5 +77,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.3.1",
-    "version": "1c2ac43a4c1e0f7b495d8c2c83c271cb"
+    "version": "4348fc0538fedbff0fa1c03a66cab2d4"
 };

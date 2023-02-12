@@ -14,6 +14,7 @@ type EagerFfmq2Data = {
   readonly id: string;
   readonly companyId?: number | null;
   readonly personId?: number | null;
+  readonly Ffmq2Data?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -26,6 +27,7 @@ type LazyFfmq2Data = {
   readonly id: string;
   readonly companyId?: number | null;
   readonly personId?: number | null;
+  readonly Ffmq2Data?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

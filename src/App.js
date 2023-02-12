@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from "react";
 import RaderChart from "./Chart";
-import {API, graphqlOperation, Amplify} from "aws-amplify";
+import {API, graphqlOperation, Amplify, input} from "aws-amplify";
 import {listFfmq2Data} from "./graphql/queries";
 import {createFfmq2Data} from "./graphql/mutations";
 import awsmobile from "./aws-exports";
@@ -57,39 +57,32 @@ function App() {
 
   const nextPage = ()=>{
     setQuestionState(questionState+1);
-    const opt = Object.assign({},{
-      filter:{personId:{eq:personId}},
-      sort: {
-        direction: "desc",
-        field: "createdAt"
-      }
-    });
+    const opt = {
+      filter:{personId:{eq:personId}
+    }};
     API.graphql(graphqlOperation(listFfmq2Data, opt)).then(values => {
-      console.log(values);
+      console.log("fetch data", values);
       const data = values.data.listFfmq2Data.items;
       var mostRecentDate = ""
       var mostRecentId = 0
       for (let i = 0; i < data.length; i++) {
-        console.log("iii", i)
         if (i===0){
-          mostRecentDate = data[1].createdAt
-          mostRecentId = 1
+          mostRecentDate = data[0].createdAt
+          mostRecentId = 0
         }
-        console.log("lenght",data.length)
         if (i>=1){
-          if (data[i].createdAt > data[i-1].createdAt){
-            console.log("1番目");
+          if (data[i].createdAt > mostRecentDate){
+            console.log("1(2)番目");
             mostRecentDate = data[i].createdAt;
             mostRecentId = i
-          } else if (data[i].createdAt < data[i-1].createdAt) {
-            console.log("2番目")
-            mostRecentDate = data[i-1].createdAt
-            mostRecentId = i-1
+          } else if (data[i].createdAt < mostRecentDate) {
+            console.log("2(3)番目")
+            mostRecentDate = mostRecentDate
+            mostRecentId = mostRecentId
           }
         }}
-      console.log("recentdate:",mostRecentDate)
-      console.log("recentId", mostRecentId)
-      setLastAnswerList(data[mostRecentId].ffmqScore)
+      console.log("last FFMQ Score", data[mostRecentId].Ffmq2Data)
+      setLastAnswerList(data[mostRecentId].Ffmq2Data)
     })
     };
     console.log("LastFFMQ:",lastAnswerList);
@@ -100,11 +93,10 @@ function App() {
 
   const fixResult = () =>{
     API.graphql(graphqlOperation(createFfmq2Data, 
-      {input:{personId:personId, ffmqScore:answerList}}))
-      .then(()=>{alert("送信しました")})
+      {input:{personId:personId, Ffmq2Data:answerList}}))
+      .then(()=>{alert("データをサーバーに送信しました")})
     setAnswerList([]);
     setQuestionState(-1);
-    console.log(val)
   }
   console.log(transition);
   console.log("personID", personId);
@@ -121,37 +113,21 @@ function App() {
         </form>
         <h2>サーベー開始! １問目へ</h2>
             <button onClick={nextPage}>開始</button>
-        {/* <div>
-            <button onClick={graphqlCreating}>データ送信</button>
-        </div> */}
       </div>
     )
   } else if (questionState===5){
     return(
     <div className="App">
       <h2>終了しました!お疲れ様でした</h2>
-      <button
-        onClick={fixResult}
-      >最初に戻る</button>
       <div style={{margin:"auto",width:"500px"}}>
         <RaderChart answerListChart={[answerList, JSON.parse(lastAnswerList)]}/>
       </div>
+      <button
+        onClick={fixResult}
+      >最初に戻る</button>
     </div>
   )}
   else if (transition===true){
-    // return(
-    //   <div className="App">
-    //     <div>
-    //     <p>{questions[questionState]}</p>
-    //     <input id={answers[0]} type="radio" value={answers[0]} onChange={handleChange} checked={answers[0]=== val}/>
-    //     {answers[0]}
-    //     <input id={answers[1]} type="radio" value={answers[1]} onChange={handleChange} checked={answers[1]=== val}/>
-    //     <input id={answers[2]} type="radio" value={answers[2]} onChange={handleChange} checked={answers[2]=== val}/>
-    //     <input id={answers[3]} type="radio" value={answers[3]} onChange={handleChange} checked={answers[3]=== val}/>
-    //     </div>
-    //     <p>答えは{val}</p>
-    //   </div>
-    // )
       return (
         <div className="App">
           <div>

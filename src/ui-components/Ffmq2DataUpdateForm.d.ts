@@ -14,21 +14,21 @@ export declare type ValidationResponse = {
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type Ffmq2DataUpdateFormInputValues = {
-    companyId?: string;
-    personId?: string;
-    ffmqScore?: string;
+    companyId?: number;
+    personId?: number;
+    Ffmq2Data?: string;
 };
 export declare type Ffmq2DataUpdateFormValidationValues = {
-    companyId?: ValidationFunction<string>;
-    personId?: ValidationFunction<string>;
-    ffmqScore?: ValidationFunction<string>;
+    companyId?: ValidationFunction<number>;
+    personId?: ValidationFunction<number>;
+    Ffmq2Data?: ValidationFunction<string>;
 };
 export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type Ffmq2DataUpdateFormOverridesProps = {
     Ffmq2DataUpdateFormGrid?: FormProps<GridProps>;
     companyId?: FormProps<TextFieldProps>;
     personId?: FormProps<TextFieldProps>;
-    ffmqScore?: FormProps<TextFieldProps>;
+    Ffmq2Data?: FormProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type Ffmq2DataUpdateFormProps = React.PropsWithChildren<{
     overrides?: Ffmq2DataUpdateFormOverridesProps | undefined | null;

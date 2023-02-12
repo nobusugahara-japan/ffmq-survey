@@ -26,22 +26,22 @@ export default function Ffmq2DataCreateForm(props) {
   const initialValues = {
     companyId: undefined,
     personId: undefined,
-    ffmqScore: undefined,
+    Ffmq2Data: undefined,
   };
   const [companyId, setCompanyId] = React.useState(initialValues.companyId);
   const [personId, setPersonId] = React.useState(initialValues.personId);
-  const [ffmqScore, setFfmqScore] = React.useState(initialValues.ffmqScore);
+  const [FfmqData, setFfmqData] = React.useState(initialValues.Ffmq2Data);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setCompanyId(initialValues.companyId);
     setPersonId(initialValues.personId);
-    setFfmqScore(initialValues.ffmqScore);
+    setFfmqData(initialValues.Ffmq2Data);
     setErrors({});
   };
   const validations = {
     companyId: [],
     personId: [],
-    ffmqScore: [],
+    Ffmq2Data: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -63,7 +63,7 @@ export default function Ffmq2DataCreateForm(props) {
         let modelFields = {
           companyId,
           personId,
-          ffmqScore,
+          Ffmq2Data: FfmqData,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -108,13 +108,22 @@ export default function Ffmq2DataCreateForm(props) {
         label="Company id"
         isRequired={false}
         isReadOnly={false}
+        type="number"
+        step="any"
         onChange={(e) => {
-          let { value } = e.target;
+          let value = parseInt(e.target.value);
+          if (isNaN(value)) {
+            setErrors((errors) => ({
+              ...errors,
+              companyId: "Value must be a valid number",
+            }));
+            return;
+          }
           if (onChange) {
             const modelFields = {
               companyId: value,
               personId,
-              ffmqScore,
+              Ffmq2Data: FfmqData,
             };
             const result = onChange(modelFields);
             value = result?.companyId ?? value;
@@ -133,13 +142,22 @@ export default function Ffmq2DataCreateForm(props) {
         label="Person id"
         isRequired={false}
         isReadOnly={false}
+        type="number"
+        step="any"
         onChange={(e) => {
-          let { value } = e.target;
+          let value = parseInt(e.target.value);
+          if (isNaN(value)) {
+            setErrors((errors) => ({
+              ...errors,
+              personId: "Value must be a valid number",
+            }));
+            return;
+          }
           if (onChange) {
             const modelFields = {
               companyId,
               personId: value,
-              ffmqScore,
+              Ffmq2Data: FfmqData,
             };
             const result = onChange(modelFields);
             value = result?.personId ?? value;
@@ -155,7 +173,7 @@ export default function Ffmq2DataCreateForm(props) {
         {...getOverrideProps(overrides, "personId")}
       ></TextField>
       <TextField
-        label="Ffmq score"
+        label="Ffmq2 data"
         isRequired={false}
         isReadOnly={false}
         onChange={(e) => {
@@ -164,20 +182,20 @@ export default function Ffmq2DataCreateForm(props) {
             const modelFields = {
               companyId,
               personId,
-              ffmqScore: value,
+              Ffmq2Data: FfmqData,
             };
             const result = onChange(modelFields);
-            value = result?.ffmqScore ?? value;
+            value = result?.Ffmq2Data ?? value;
           }
-          if (errors.ffmqScore?.hasError) {
-            runValidationTasks("ffmqScore", value);
+          if (errors.Ffmq2Data?.hasError) {
+            runValidationTasks("Ffmq2Data", value);
           }
-          setFfmqScore(value);
+          setFfmqData(value);
         }}
-        onBlur={() => runValidationTasks("ffmqScore", ffmqScore)}
-        errorMessage={errors.ffmqScore?.errorMessage}
-        hasError={errors.ffmqScore?.hasError}
-        {...getOverrideProps(overrides, "ffmqScore")}
+        onBlur={() => runValidationTasks("Ffmq2Data", FfmqData)}
+        errorMessage={errors.Ffmq2Data?.errorMessage}
+        hasError={errors.Ffmq2Data?.hasError}
+        {...getOverrideProps(overrides, "Ffmq2Data")}
       ></TextField>
       <Flex
         justifyContent="space-between"
