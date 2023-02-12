@@ -16,16 +16,19 @@ export declare type ValidationFunction<T> = (value: T, validationResponse: Valid
 export declare type Ffmq2DataUpdateFormInputValues = {
     companyId?: string;
     personId?: string;
+    ffmqScore?: string;
 };
 export declare type Ffmq2DataUpdateFormValidationValues = {
     companyId?: ValidationFunction<string>;
     personId?: ValidationFunction<string>;
+    ffmqScore?: ValidationFunction<string>;
 };
 export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type Ffmq2DataUpdateFormOverridesProps = {
     Ffmq2DataUpdateFormGrid?: FormProps<GridProps>;
     companyId?: FormProps<TextFieldProps>;
     personId?: FormProps<TextFieldProps>;
+    ffmqScore?: FormProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type Ffmq2DataUpdateFormProps = React.PropsWithChildren<{
     overrides?: Ffmq2DataUpdateFormOverridesProps | undefined | null;

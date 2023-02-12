@@ -27,14 +27,17 @@ export default function Ffmq2DataUpdateForm(props) {
   const initialValues = {
     companyId: undefined,
     personId: undefined,
+    ffmqScore: undefined,
   };
   const [companyId, setCompanyId] = React.useState(initialValues.companyId);
   const [personId, setPersonId] = React.useState(initialValues.personId);
+  const [ffmqScore, setFfmqScore] = React.useState(initialValues.ffmqScore);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = { ...initialValues, ...ffmq2DataRecord };
     setCompanyId(cleanValues.companyId);
     setPersonId(cleanValues.personId);
+    setFfmqScore(cleanValues.ffmqScore);
     setErrors({});
   };
   const [ffmq2DataRecord, setFfmq2DataRecord] = React.useState(ffmq2Data);
@@ -49,6 +52,7 @@ export default function Ffmq2DataUpdateForm(props) {
   const validations = {
     companyId: [],
     personId: [],
+    ffmqScore: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -70,6 +74,7 @@ export default function Ffmq2DataUpdateForm(props) {
         let modelFields = {
           companyId,
           personId,
+          ffmqScore,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -122,6 +127,7 @@ export default function Ffmq2DataUpdateForm(props) {
             const modelFields = {
               companyId: value,
               personId,
+              ffmqScore,
             };
             const result = onChange(modelFields);
             value = result?.companyId ?? value;
@@ -147,6 +153,7 @@ export default function Ffmq2DataUpdateForm(props) {
             const modelFields = {
               companyId,
               personId: value,
+              ffmqScore,
             };
             const result = onChange(modelFields);
             value = result?.personId ?? value;
@@ -160,6 +167,32 @@ export default function Ffmq2DataUpdateForm(props) {
         errorMessage={errors.personId?.errorMessage}
         hasError={errors.personId?.hasError}
         {...getOverrideProps(overrides, "personId")}
+      ></TextField>
+      <TextField
+        label="Ffmq score"
+        isRequired={false}
+        isReadOnly={false}
+        defaultValue={ffmqScore}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              companyId,
+              personId,
+              ffmqScore: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.ffmqScore ?? value;
+          }
+          if (errors.ffmqScore?.hasError) {
+            runValidationTasks("ffmqScore", value);
+          }
+          setFfmqScore(value);
+        }}
+        onBlur={() => runValidationTasks("ffmqScore", ffmqScore)}
+        errorMessage={errors.ffmqScore?.errorMessage}
+        hasError={errors.ffmqScore?.hasError}
+        {...getOverrideProps(overrides, "ffmqScore")}
       ></TextField>
       <Flex
         justifyContent="space-between"

@@ -9,6 +9,7 @@ export const onCreateFfmq2Data = /* GraphQL */ `
       id
       companyId
       personId
+      Ffmq2Data
       createdAt
       updatedAt
     }
@@ -22,6 +23,7 @@ export const onUpdateFfmq2Data = /* GraphQL */ `
       id
       companyId
       personId
+      Ffmq2Data
       createdAt
       updatedAt
     }
@@ -35,6 +37,7 @@ export const onDeleteFfmq2Data = /* GraphQL */ `
       id
       companyId
       personId
+      Ffmq2Data
       createdAt
       updatedAt
     }

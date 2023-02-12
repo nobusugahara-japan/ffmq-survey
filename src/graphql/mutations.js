@@ -10,9 +10,9 @@ export const createFfmq2Data = /* GraphQL */ `
       id
       companyId
       personId
+      Ffmq2Data
       createdAt
       updatedAt
-      ffmqScore
     }
   }
 `;
@@ -25,6 +25,7 @@ export const updateFfmq2Data = /* GraphQL */ `
       id
       companyId
       personId
+      Ffmq2Data
       createdAt
       updatedAt
     }
@@ -39,6 +40,7 @@ export const deleteFfmq2Data = /* GraphQL */ `
       id
       companyId
       personId
+      Ffmq2Data
       createdAt
       updatedAt
     }
