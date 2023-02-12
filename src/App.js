@@ -1,7 +1,7 @@
 import './App.css';
 import { useState } from "react";
 import RaderChart from "./Chart";
-import {API, graphqlOperation, Amplify, input} from "aws-amplify";
+import {API, graphqlOperation, Amplify} from "aws-amplify";
 import {listFfmq2Data} from "./graphql/queries";
 import {createFfmq2Data} from "./graphql/mutations";
 import awsmobile from "./aws-exports";
@@ -77,8 +77,8 @@ function App() {
             mostRecentId = i
           } else if (data[i].createdAt < mostRecentDate) {
             console.log("2(3)番目")
-            mostRecentDate = mostRecentDate
-            mostRecentId = mostRecentId
+            // mostRecentDate = mostRecentDate
+            // mostRecentId = mostRecentId
           }
         }}
       console.log("last FFMQ Score", data[mostRecentId].Ffmq2Data)
@@ -111,7 +111,7 @@ function App() {
             onChange={(e) => setPersonId(e.target.value)}>
             </input>
         </form>
-        <h2>サーベー開始! １問目へ</h2>
+        <h2>サーベイ開始! １問目へ</h2>
             <button onClick={nextPage}>開始</button>
       </div>
     )

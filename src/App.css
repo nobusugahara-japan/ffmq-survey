@@ -43,7 +43,7 @@
   display: inline-block;
   text-align: center;
   font-size: 100%;
-  width: 10%;
+  width: 150px;
   padding: 0.5em;
   border: 1px solid #999;
   box-sizing: border-box;
@@ -53,4 +53,5 @@
 
 .inputText::placeholder {
   font-size: 12px;
+  text-align: center;
  }
