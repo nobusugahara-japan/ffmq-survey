@@ -5,11 +5,11 @@ import {API, graphqlOperation, Amplify} from "aws-amplify";
 import {listFfmq2Data} from "./graphql/queries";
 import {createFfmq2Data} from "./graphql/mutations";
 import aws_exports from "./aws-exports";
-// import {withAuthenticator} from "@aws-amplify/ui-react";
+import {withAuthenticator} from "@aws-amplify/ui-react";
 
 Amplify.configure(aws_exports)
 
-function App() {
+function App({ signOut, user }) {
   const answers = ["ほとんどあてはまる", "少しあてはまる", "ほとんどあてはまらない", "全く当てはまらない"];
   const questions = ["1.瞑想は毎日行いますか?", "2.瞑想すると気分が良くなりますか？",
                     "3.イライラすることが多いですか？", "4.自分が怒っている時にその感情に気付きますか？",
