@@ -38,3 +38,19 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.inputText {
+  display: inline-block;
+  text-align: center;
+  font-size: 100%;
+  width: 10%;
+  padding: 0.5em;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  background: #f2f2f2;
+  margin: 0.5em 0;
+}
+
+.inputText::placeholder {
+  font-size: 12px;
+ }
