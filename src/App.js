@@ -4,10 +4,10 @@ import RaderChart from "./Chart";
 import {API, graphqlOperation, Amplify} from "aws-amplify";
 import {listFfmq2Data} from "./graphql/queries";
 import {createFfmq2Data} from "./graphql/mutations";
-import awsmobile from "./aws-exports";
+import aws_exports from "./aws-exports";
 // import {withAuthenticator} from "@aws-amplify/ui-react";
 
-Amplify.configure(awsmobile)
+Amplify.configure(aws_exports)
 
 function App() {
   const answers = ["ほとんどあてはまる", "少しあてはまる", "ほとんどあてはまらない", "全く当てはまらない"];
