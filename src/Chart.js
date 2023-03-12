@@ -8,12 +8,10 @@ const RaderChart = (props) => {
     console.log("チャート",props.answerListChart);
 
     const reverseFunc =(questionsData, answers, i) =>{
-      console.log("ここ3",questionsData[i].reverse)
       if (questionsData[i].reverse===true){
-        console.log("ここ4",answers[i])
-        return answers[i];
+        return Math.abs(answers[i]-6);
       } else if (questionsData[i].reverse===false){
-        return Math.abs(answers[i]-5);
+        return answers[i];
     }}
 
     const makeScore = (answers)=>{

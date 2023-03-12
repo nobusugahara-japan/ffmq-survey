@@ -120,7 +120,7 @@ function App({ signOut, user }) {
 
   const returnFirst =()=>{
     setAnswerList([]);
-    setQuestionState(-3);
+    setQuestionState(-5);
     setChartDisplay(false)
   }
   // console.log(transition);
