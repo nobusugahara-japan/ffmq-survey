@@ -1,23 +1,63 @@
 import { Chart, registerables } from "chart.js";
 import { Radar } from 'react-chartjs-2';
+import questionsData from "./Questions.json";
 
 Chart.register(...registerables)
 
 const RaderChart = (props) => {
     console.log("チャート",props.answerListChart);
+
+    const reverseFunc =(questionsData, answers, i) =>{
+      console.log("ここ3",questionsData[i].reverse)
+      if (questionsData[i].reverse===true){
+        console.log("ここ4",answers[i])
+        return answers[i];
+      } else if (questionsData[i].reverse===false){
+        return Math.abs(answers[i]-5);
+    }}
+
+    const makeScore = (answers)=>{
+      const scores = [0,0,0,0,0]
+      console.log("ここ",answers.length)
+      console.log("ここ2",questionsData)
+      for (let i=0; i < answers.length; i++){
+        if (questionsData[i].classfication=="体験の観察"){
+          console.log("ここ5", reverseFunc(questionsData, answers, i))
+          scores[0] = scores[0]+reverseFunc(questionsData, answers, i)
+        } else if (questionsData[i].classfication=="反応しない態度"){
+          scores[1] = scores[1]+reverseFunc(questionsData, answers, i)
+        } else if (questionsData[i].classfication=="判断しない態度"){
+          scores[2] = scores[2]+reverseFunc(questionsData, answers, i)
+        } else if (questionsData[i].classfication=="描写と表現"){
+          scores[3] = scores[3]+reverseFunc(questionsData, answers, i)
+        } else if (questionsData[i].classfication=="意識した行動"){
+          scores[4] = scores[4]+reverseFunc(questionsData, answers, i)
+      }
+    }
+    const scores2 = scores.map(score=>Math.round(score/4*10)/10)
+    console.log("ここ6", scores2)
+    return scores2
+  }
+
+    console.log(props.answerListChart[0])
+    const thisTimeScore = makeScore(props.answerListChart[0]);
+    console.log("ここ7", thisTimeScore)
+    const lastTimeScore = makeScore(props.answerListChart[1]);
+
+
     const data = {
         labels: ['感覚の目覚め', '感情の保留', '判断の保留', '心の描写', '行動の意識化'],
         datasets: [
           {
             label: '今回',
-            data: props.answerListChart[0],
+            data: thisTimeScore,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 1,
           },
           {
             label: '前回',
-            data: props.answerListChart[1],
+            data: lastTimeScore,
             backgroundColor: 'rgba(60, 179, 113, 0.2)',
             borderColor: 'rgba(60, 179, 113, 1)',
             borderWidth: 1,

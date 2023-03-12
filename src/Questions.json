@@ -1,0 +1,83 @@
+ {
+
+    "0":{ "question": "1.歩いている時の太ももの上げ下げや着地などの身体の感覚に自然に注意が向く",
+        "reverse": true,
+        "classfication": "体験の観察"},
+
+    "1":{"question":"2.難しい状況においても、慌てず、ひと呼吸を置くことが出来る",
+        "reverse": true,
+        "classfication": "反応しない態度"},
+
+    "2":{"question":"3.自分は正しくて、他人の考えは間違っていると感じる",
+        "reverse": false,
+        "classfication": "判断しない態度"},
+
+    "3":{"question":"4.気がつくと注意を払わず何かをしている",
+        "reverse": false,
+        "classfication": "意識した行動"},
+
+    "4":{"question":"5.混乱した時に、その気持ちに合う言葉を上手く見つけられない",
+        "reverse": false,
+        "classfication": "描写と表現"},
+
+    "5":{"question":"6.自分の考えが良いか悪いかを無意識の内に判断している",
+        "reverse": false,
+        "classfication": "判断しない態度"},
+
+    "6":{"question":"7.今、自分が抱いている感情に気づきつつも、それに反応することはない。",
+        "reverse": true,
+        "classfication": "反応しない態度"},
+
+    "7":{"question":"8.目の前のことに集中するのが難しい。",
+        "reverse": false,
+        "classfication": "意識した行動"},
+
+    "8":{"question":"9.自分が感じていることや考えていることを言葉にするのが難しい",
+        "reverse": false,
+        "classfication": "描写と表現"},
+
+    "9":{"question":"10.食事をしている時の噛んでいる感覚や、食道や胃に流れる感覚に意識が自然に向く",
+        "reverse": true,
+        "classfication": "体験の観察"},
+
+    "10":{"question":"11.自分の考えに対し、そういうふうに考えるのはよくないと考える",
+        "reverse": false,
+        "classfication": "判断しない態度"},
+
+    "11":{"question":"12.空想にふけったり、心配したり、自分が今やっていることに注意を向けていない。",
+        "reverse": false,
+        "classfication": "意識した行動"},
+
+    "12":{"question":"13.嬉しいことが起こった時に、ああ、自分は喜んでいるんだと認識する",
+        "reverse": true,
+        "classfication": "反応しない態度"},
+
+    "13":{"question":"14.鳥の囀りや、風の音、木の葉の囁きなどの音を自然に感じることが出来る",
+        "reverse": true,
+        "classfication": "体験の観察"},
+
+    "14":{"question":"15.辛い感情が湧いてもも、まるで自分を外から眺めているように見ている",
+        "reverse": true,
+        "classfication": "反応しない態度"},
+
+    "15":{"question":"16.自分の身体が感じていることを言葉で表現することが難しい",
+        "reverse": false,
+        "classfication": "描写と表現"},
+
+    "16":{"question":"17.樹木などの自然を見る時に、その色、形、質感、光などのパターンに気づく",
+        "reverse": true,
+        "classfication": "体験の観察"},
+
+    "17":{"question":"18.簡単に気が散ってしまう。",
+        "reverse": false,
+        "classfication": "意識した行動"},
+
+    "18":{"question":"19.ネガティブな気持ちを抱いたと自分を責める",
+        "reverse": false,
+        "classfication": "判断しない態度"},
+
+    "19":{"question":"20.嬉しい時や興奮している時に、その感情を表現することが得意だ",
+        "reverse": true,
+        "classfication": "描写と表現"}
+
+}
