@@ -4,8 +4,11 @@ import { schema } from './schema';
 
 
 
-const { Ffmq2Data } = initSchema(schema);
+const { CompanyName, ConditionData, AttributeData, Ffmq2Data } = initSchema(schema);
 
 export {
+  CompanyName,
+  ConditionData,
+  AttributeData,
   Ffmq2Data
 };

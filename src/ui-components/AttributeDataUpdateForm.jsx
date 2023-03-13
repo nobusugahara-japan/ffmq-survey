@@ -7,14 +7,14 @@
 /* eslint-disable */
 import * as React from "react";
 import { fetchByPath, validateField } from "./utils";
-import { Ffmq2Data } from "../models";
+import { AttributeData } from "../models";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
-export default function Ffmq2DataUpdateForm(props) {
+export default function AttributeDataUpdateForm(props) {
   const {
     id,
-    ffmq2Data,
+    attributeData,
     onSuccess,
     onError,
     onSubmit,
@@ -27,34 +27,39 @@ export default function Ffmq2DataUpdateForm(props) {
   const initialValues = {
     companyName: undefined,
     personId: undefined,
-    Ffmq2Data: undefined,
+    attributeData: undefined,
   };
   const [companyName, setCompanyName] = React.useState(
     initialValues.companyName
   );
   const [personId, setPersonId] = React.useState(initialValues.personId);
-  const [FfmqData, setFfmqData] = React.useState(initialValues.Ffmq2Data);
+  const [attributeData, setAttributeData] = React.useState(
+    initialValues.attributeData
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = { ...initialValues, ...ffmq2DataRecord };
+    const cleanValues = { ...initialValues, ...attributeDataRecord };
     setCompanyName(cleanValues.companyName);
     setPersonId(cleanValues.personId);
-    setFfmqData(cleanValues.Ffmq2Data);
+    setAttributeData(cleanValues.attributeData);
     setErrors({});
   };
-  const [ffmq2DataRecord, setFfmq2DataRecord] = React.useState(ffmq2Data);
+  const [attributeDataRecord, setAttributeDataRecord] =
+    React.useState(attributeData);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = id ? await DataStore.query(Ffmq2Data, id) : ffmq2Data;
-      setFfmq2DataRecord(record);
+      const record = id
+        ? await DataStore.query(AttributeData, id)
+        : attributeData;
+      setAttributeDataRecord(record);
     };
     queryData();
-  }, [id, ffmq2Data]);
-  React.useEffect(resetStateValues, [ffmq2DataRecord]);
+  }, [id, attributeData]);
+  React.useEffect(resetStateValues, [attributeDataRecord]);
   const validations = {
     companyName: [],
     personId: [],
-    Ffmq2Data: [],
+    attributeData: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -76,7 +81,7 @@ export default function Ffmq2DataUpdateForm(props) {
         let modelFields = {
           companyName,
           personId,
-          Ffmq2Data: FfmqData,
+          attributeData,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -102,7 +107,7 @@ export default function Ffmq2DataUpdateForm(props) {
         }
         try {
           await DataStore.save(
-            Ffmq2Data.copyOf(ffmq2DataRecord, (updated) => {
+            AttributeData.copyOf(attributeDataRecord, (updated) => {
               Object.assign(updated, modelFields);
             })
           );
@@ -116,7 +121,7 @@ export default function Ffmq2DataUpdateForm(props) {
         }
       }}
       {...rest}
-      {...getOverrideProps(overrides, "Ffmq2DataUpdateForm")}
+      {...getOverrideProps(overrides, "AttributeDataUpdateForm")}
     >
       <TextField
         label="Company name"
@@ -129,7 +134,7 @@ export default function Ffmq2DataUpdateForm(props) {
             const modelFields = {
               companyName: value,
               personId,
-              Ffmq2Data: FfmqData,
+              attributeData,
             };
             const result = onChange(modelFields);
             value = result?.companyName ?? value;
@@ -164,7 +169,7 @@ export default function Ffmq2DataUpdateForm(props) {
             const modelFields = {
               companyName,
               personId: value,
-              Ffmq2Data: FfmqData,
+              attributeData,
             };
             const result = onChange(modelFields);
             value = result?.personId ?? value;
@@ -180,30 +185,30 @@ export default function Ffmq2DataUpdateForm(props) {
         {...getOverrideProps(overrides, "personId")}
       ></TextField>
       <TextField
-        label="Ffmq2 data"
+        label="Attribute data"
         isRequired={false}
         isReadOnly={false}
-        defaultValue={FfmqData}
+        defaultValue={attributeData}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               companyName,
               personId,
-              Ffmq2Data: FfmqData,
+              attributeData: value,
             };
             const result = onChange(modelFields);
-            value = result?.Ffmq2Data ?? value;
+            value = result?.attributeData ?? value;
           }
-          if (errors.Ffmq2Data?.hasError) {
-            runValidationTasks("Ffmq2Data", value);
+          if (errors.attributeData?.hasError) {
+            runValidationTasks("attributeData", value);
           }
-          setFfmqData(value);
+          setAttributeData(value);
         }}
-        onBlur={() => runValidationTasks("Ffmq2Data", FfmqData)}
-        errorMessage={errors.Ffmq2Data?.errorMessage}
-        hasError={errors.Ffmq2Data?.hasError}
-        {...getOverrideProps(overrides, "Ffmq2Data")}
+        onBlur={() => runValidationTasks("attributeData", attributeData)}
+        errorMessage={errors.attributeData?.errorMessage}
+        hasError={errors.attributeData?.hasError}
+        {...getOverrideProps(overrides, "attributeData")}
       ></TextField>
       <Flex
         justifyContent="space-between"

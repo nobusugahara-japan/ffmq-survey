@@ -7,14 +7,12 @@
 /* eslint-disable */
 import * as React from "react";
 import { fetchByPath, validateField } from "./utils";
-import { Ffmq2Data } from "../models";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
-export default function Ffmq2DataUpdateForm(props) {
+export default function ConditionDataCreateForm(props) {
   const {
-    id,
-    ffmq2Data,
+    clearOnSuccess = true,
     onSuccess,
     onError,
     onSubmit,
@@ -25,36 +23,28 @@ export default function Ffmq2DataUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    companyName: undefined,
+    CompanyName: undefined,
     personId: undefined,
-    Ffmq2Data: undefined,
+    ConditionData: undefined,
   };
-  const [companyName, setCompanyName] = React.useState(
-    initialValues.companyName
+  const [CompanyName, setCompanyName] = React.useState(
+    initialValues.CompanyName
   );
   const [personId, setPersonId] = React.useState(initialValues.personId);
-  const [FfmqData, setFfmqData] = React.useState(initialValues.Ffmq2Data);
+  const [ConditionData, setConditionData] = React.useState(
+    initialValues.ConditionData
+  );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = { ...initialValues, ...ffmq2DataRecord };
-    setCompanyName(cleanValues.companyName);
-    setPersonId(cleanValues.personId);
-    setFfmqData(cleanValues.Ffmq2Data);
+    setCompanyName(initialValues.CompanyName);
+    setPersonId(initialValues.personId);
+    setConditionData(initialValues.ConditionData);
     setErrors({});
   };
-  const [ffmq2DataRecord, setFfmq2DataRecord] = React.useState(ffmq2Data);
-  React.useEffect(() => {
-    const queryData = async () => {
-      const record = id ? await DataStore.query(Ffmq2Data, id) : ffmq2Data;
-      setFfmq2DataRecord(record);
-    };
-    queryData();
-  }, [id, ffmq2Data]);
-  React.useEffect(resetStateValues, [ffmq2DataRecord]);
   const validations = {
-    companyName: [],
+    CompanyName: [],
     personId: [],
-    Ffmq2Data: [],
+    ConditionData: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -74,9 +64,9 @@ export default function Ffmq2DataUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          companyName,
+          CompanyName,
           personId,
-          Ffmq2Data: FfmqData,
+          ConditionData,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -101,13 +91,12 @@ export default function Ffmq2DataUpdateForm(props) {
           modelFields = onSubmit(modelFields);
         }
         try {
-          await DataStore.save(
-            Ffmq2Data.copyOf(ffmq2DataRecord, (updated) => {
-              Object.assign(updated, modelFields);
-            })
-          );
+          await DataStore.save(new ConditionData(modelFields));
           if (onSuccess) {
             onSuccess(modelFields);
+          }
+          if (clearOnSuccess) {
+            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -116,33 +105,32 @@ export default function Ffmq2DataUpdateForm(props) {
         }
       }}
       {...rest}
-      {...getOverrideProps(overrides, "Ffmq2DataUpdateForm")}
+      {...getOverrideProps(overrides, "ConditionDataCreateForm")}
     >
       <TextField
         label="Company name"
         isRequired={false}
         isReadOnly={false}
-        defaultValue={companyName}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              companyName: value,
+              CompanyName: value,
               personId,
-              Ffmq2Data: FfmqData,
+              ConditionData,
             };
             const result = onChange(modelFields);
-            value = result?.companyName ?? value;
+            value = result?.CompanyName ?? value;
           }
-          if (errors.companyName?.hasError) {
-            runValidationTasks("companyName", value);
+          if (errors.CompanyName?.hasError) {
+            runValidationTasks("CompanyName", value);
           }
           setCompanyName(value);
         }}
-        onBlur={() => runValidationTasks("companyName", companyName)}
-        errorMessage={errors.companyName?.errorMessage}
-        hasError={errors.companyName?.hasError}
-        {...getOverrideProps(overrides, "companyName")}
+        onBlur={() => runValidationTasks("CompanyName", CompanyName)}
+        errorMessage={errors.CompanyName?.errorMessage}
+        hasError={errors.CompanyName?.hasError}
+        {...getOverrideProps(overrides, "CompanyName")}
       ></TextField>
       <TextField
         label="Person id"
@@ -150,7 +138,6 @@ export default function Ffmq2DataUpdateForm(props) {
         isReadOnly={false}
         type="number"
         step="any"
-        defaultValue={personId}
         onChange={(e) => {
           let value = parseInt(e.target.value);
           if (isNaN(value)) {
@@ -162,9 +149,9 @@ export default function Ffmq2DataUpdateForm(props) {
           }
           if (onChange) {
             const modelFields = {
-              companyName,
+              CompanyName,
               personId: value,
-              Ffmq2Data: FfmqData,
+              ConditionData,
             };
             const result = onChange(modelFields);
             value = result?.personId ?? value;
@@ -180,40 +167,39 @@ export default function Ffmq2DataUpdateForm(props) {
         {...getOverrideProps(overrides, "personId")}
       ></TextField>
       <TextField
-        label="Ffmq2 data"
+        label="Condition data"
         isRequired={false}
         isReadOnly={false}
-        defaultValue={FfmqData}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              companyName,
+              CompanyName,
               personId,
-              Ffmq2Data: FfmqData,
+              ConditionData: value,
             };
             const result = onChange(modelFields);
-            value = result?.Ffmq2Data ?? value;
+            value = result?.ConditionData ?? value;
           }
-          if (errors.Ffmq2Data?.hasError) {
-            runValidationTasks("Ffmq2Data", value);
+          if (errors.ConditionData?.hasError) {
+            runValidationTasks("ConditionData", value);
           }
-          setFfmqData(value);
+          setConditionData(value);
         }}
-        onBlur={() => runValidationTasks("Ffmq2Data", FfmqData)}
-        errorMessage={errors.Ffmq2Data?.errorMessage}
-        hasError={errors.Ffmq2Data?.hasError}
-        {...getOverrideProps(overrides, "Ffmq2Data")}
+        onBlur={() => runValidationTasks("ConditionData", ConditionData)}
+        errorMessage={errors.ConditionData?.errorMessage}
+        hasError={errors.ConditionData?.hasError}
+        {...getOverrideProps(overrides, "ConditionData")}
       ></TextField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Reset"
+          children="Clear"
           type="reset"
           onClick={resetStateValues}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex {...getOverrideProps(overrides, "RightAlignCTASubFlex")}>
           <Button

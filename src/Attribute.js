@@ -1,3 +1,5 @@
+import {API, graphqlOperation} from "aws-amplify";
+import {createAttributeData} from "./graphql/mutations";
 
 const Attribute = (props) => {
     console.log("check",props.attributeData[0])
@@ -18,6 +20,13 @@ const Attribute = (props) => {
         const newAttribute = [...props.attributeData]
         newAttribute[2] = event.target.value
         props.setAttributeData(newAttribute)
+    }
+
+    const sendData=()=>{
+        API.graphql(graphqlOperation(createAttributeData, 
+            {input:{personId:props.personId, companyName:props.customerName, attributeData:props.attributeData}}))
+            .then(()=>{console.log("送信成功")})
+        props.setQuestionState(props.questionState+1);
     }
 
     return (
@@ -65,7 +74,7 @@ const Attribute = (props) => {
          <p style={{fontSize:"10px"}}>{props.attributeData[2]}</p>
 
         <h3>入力が完了したら、下記のボタンを押して次へ進んでください</h3>
-        <button onClick={props.nextPage}>次へ</button>
+        <button onClick={sendData}>次へ</button>
         </div>
      )
     }

@@ -1,6 +1,26 @@
+type CompanyName @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  companyName: String
+}
+
+type ConditionData @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  CompanyName: String
+  personId: Int
+  ConditionData: String
+}
+
+type AttributeData @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  companyName: String
+  personId: Int
+  attributeData: String
+}
+
 type Ffmq2Data @model @auth(rules: [{allow: public}]) {
   id: ID!
-  companyId: Int
+  companyName: String
   personId: Int
   Ffmq2Data: String
-} 
+}
+ 

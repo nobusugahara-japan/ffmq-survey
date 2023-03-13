@@ -12,32 +12,26 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type Ffmq2DataCreateFormInputValues = {
+export declare type CompanyNameCreateFormInputValues = {
     companyName?: string;
-    personId?: number;
-    Ffmq2Data?: string;
 };
-export declare type Ffmq2DataCreateFormValidationValues = {
+export declare type CompanyNameCreateFormValidationValues = {
     companyName?: ValidationFunction<string>;
-    personId?: ValidationFunction<number>;
-    Ffmq2Data?: ValidationFunction<string>;
 };
 export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type Ffmq2DataCreateFormOverridesProps = {
-    Ffmq2DataCreateFormGrid?: FormProps<GridProps>;
+export declare type CompanyNameCreateFormOverridesProps = {
+    CompanyNameCreateFormGrid?: FormProps<GridProps>;
     companyName?: FormProps<TextFieldProps>;
-    personId?: FormProps<TextFieldProps>;
-    Ffmq2Data?: FormProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type Ffmq2DataCreateFormProps = React.PropsWithChildren<{
-    overrides?: Ffmq2DataCreateFormOverridesProps | undefined | null;
+export declare type CompanyNameCreateFormProps = React.PropsWithChildren<{
+    overrides?: CompanyNameCreateFormOverridesProps | undefined | null;
 } & {
     clearOnSuccess?: boolean;
-    onSubmit?: (fields: Ffmq2DataCreateFormInputValues) => Ffmq2DataCreateFormInputValues;
-    onSuccess?: (fields: Ffmq2DataCreateFormInputValues) => void;
-    onError?: (fields: Ffmq2DataCreateFormInputValues, errorMessage: string) => void;
+    onSubmit?: (fields: CompanyNameCreateFormInputValues) => CompanyNameCreateFormInputValues;
+    onSuccess?: (fields: CompanyNameCreateFormInputValues) => void;
+    onError?: (fields: CompanyNameCreateFormInputValues, errorMessage: string) => void;
     onCancel?: () => void;
-    onChange?: (fields: Ffmq2DataCreateFormInputValues) => Ffmq2DataCreateFormInputValues;
-    onValidate?: Ffmq2DataCreateFormValidationValues;
+    onChange?: (fields: CompanyNameCreateFormInputValues) => CompanyNameCreateFormInputValues;
+    onValidate?: CompanyNameCreateFormValidationValues;
 }>;
-export default function Ffmq2DataCreateForm(props: Ffmq2DataCreateFormProps): React.ReactElement;
+export default function CompanyNameCreateForm(props: CompanyNameCreateFormProps): React.ReactElement;

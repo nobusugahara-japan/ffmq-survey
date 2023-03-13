@@ -1,3 +1,6 @@
+import {API, graphqlOperation} from "aws-amplify";
+import {createConditionData} from "./graphql/mutations";
+
 const Conditions= (props) => {
 
     const sholderPainOption=(event)=>{
@@ -27,6 +30,14 @@ const Conditions= (props) => {
         const newConditions = [...props.conditionData]
         newConditions[4] = event.target.value
         props.setConditionData(newConditions)
+    }
+
+    const sendData = async ()=>{
+        console.log("ここでチェック",props.personId, props.conditionData)
+        API.graphql(graphqlOperation(createConditionData, 
+            {input:{personId:props.personId, CompanyName: props.customerName, ConditionData:props.conditionData}}))
+            .then(()=>{console.log("送信成功")})
+        props.setQuestionState(props.questionState+1);
     }
 
     console.log(props.conditionData)
@@ -180,7 +191,7 @@ const Conditions= (props) => {
         </p>
   
         <h3>入力が完了したら、下記のボタンを押して次へ進んでください</h3>
-        <button onClick={props.nextPage}>次へ</button>
+        <button onClick={sendData}>次へ</button>
     </div>
     )
 }

@@ -24,22 +24,24 @@ export default function Ffmq2DataCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    companyId: undefined,
+    companyName: undefined,
     personId: undefined,
     Ffmq2Data: undefined,
   };
-  const [companyId, setCompanyId] = React.useState(initialValues.companyId);
+  const [companyName, setCompanyName] = React.useState(
+    initialValues.companyName
+  );
   const [personId, setPersonId] = React.useState(initialValues.personId);
   const [FfmqData, setFfmqData] = React.useState(initialValues.Ffmq2Data);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setCompanyId(initialValues.companyId);
+    setCompanyName(initialValues.companyName);
     setPersonId(initialValues.personId);
     setFfmqData(initialValues.Ffmq2Data);
     setErrors({});
   };
   const validations = {
-    companyId: [],
+    companyName: [],
     personId: [],
     Ffmq2Data: [],
   };
@@ -61,7 +63,7 @@ export default function Ffmq2DataCreateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          companyId,
+          companyName,
           personId,
           Ffmq2Data: FfmqData,
         };
@@ -105,38 +107,29 @@ export default function Ffmq2DataCreateForm(props) {
       {...getOverrideProps(overrides, "Ffmq2DataCreateForm")}
     >
       <TextField
-        label="Company id"
+        label="Company name"
         isRequired={false}
         isReadOnly={false}
-        type="number"
-        step="any"
         onChange={(e) => {
-          let value = parseInt(e.target.value);
-          if (isNaN(value)) {
-            setErrors((errors) => ({
-              ...errors,
-              companyId: "Value must be a valid number",
-            }));
-            return;
-          }
+          let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              companyId: value,
+              companyName: value,
               personId,
               Ffmq2Data: FfmqData,
             };
             const result = onChange(modelFields);
-            value = result?.companyId ?? value;
+            value = result?.companyName ?? value;
           }
-          if (errors.companyId?.hasError) {
-            runValidationTasks("companyId", value);
+          if (errors.companyName?.hasError) {
+            runValidationTasks("companyName", value);
           }
-          setCompanyId(value);
+          setCompanyName(value);
         }}
-        onBlur={() => runValidationTasks("companyId", companyId)}
-        errorMessage={errors.companyId?.errorMessage}
-        hasError={errors.companyId?.hasError}
-        {...getOverrideProps(overrides, "companyId")}
+        onBlur={() => runValidationTasks("companyName", companyName)}
+        errorMessage={errors.companyName?.errorMessage}
+        hasError={errors.companyName?.hasError}
+        {...getOverrideProps(overrides, "companyName")}
       ></TextField>
       <TextField
         label="Person id"
@@ -155,7 +148,7 @@ export default function Ffmq2DataCreateForm(props) {
           }
           if (onChange) {
             const modelFields = {
-              companyId,
+              companyName,
               personId: value,
               Ffmq2Data: FfmqData,
             };
@@ -180,7 +173,7 @@ export default function Ffmq2DataCreateForm(props) {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
-              companyId,
+              companyName,
               personId,
               Ffmq2Data: FfmqData,
             };
