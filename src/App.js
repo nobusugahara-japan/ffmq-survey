@@ -7,6 +7,8 @@ import {createFfmq2Data} from "./graphql/mutations";
 import aws_exports from "./aws-exports";
 import {withAuthenticator} from "@aws-amplify/ui-react";
 import questionsData from "./Questions.json";
+import Attribute from './Attribute';
+import Conditions from "./Conditions"
 
 Amplify.configure(aws_exports)
 
@@ -22,6 +24,8 @@ function App({ signOut, user }) {
   const [firstSecondTime, setFirstSecondTime] = useState("")
   const [questionState, setQuestionState] = useState(-5)
   const [lastAnswerList, setLastAnswerList] = useState(new Array(20).fill(2.5))
+  const [attributeData, setAttributeData] = useState(["選択なし","選択なし","選択なし"])
+  const [conditionData, setConditionData] = useState(["選択なし","選択なし","選択なし"])
 
   console.log("AnswerList",answerList);
   var score = 0;
@@ -155,34 +159,33 @@ function App({ signOut, user }) {
         </div>
       )
     } else if (questionState===-3){
-      return (
-        <div className="App">
-          <h4>あとでそれぞれプルダウンを作成する</h4>
-          <p>1.職種（技術・エンジニア、営業・接客、専門職、管理）</p>
-          <p>2.年齢（年代のみ）</p>
-          <p>3.性別</p>
-        <h3>入力が完了したら、下記のボタンを押して次へ進んでください</h3>
-        <button onClick={nextPage}>次へ</button>
-        </div>
+      return(
+      <Attribute
+      attributeData={attributeData}
+      setAttributeData = {setAttributeData}
+      nextPage = {nextPage}
+      />
       )
     } else if (questionState===-2){ 
       return (
-        <div className="App">
-          <h4>あとでそれぞれ選択式質問を作成する</h4>
-          <h4>現在のあなたの状態を教えて下さい</h4>
-          <p>1.肩こり・変頭痛がひどい</p>
-          <p>2.人と会うのが辛い・億劫</p>
-          <p>3.イライラすることが多い</p>
-          <p>4.集中力が欠ける。ぼうっとすることが多い。</p>
-          <p>5.眠れない、眠りが浅い</p>
-        <h3>入力が完了したら、下記のボタンを押して次へ進んでください</h3>
-        <button onClick={nextPage}>次へ</button>
-        </div>
+      <Conditions
+      conditionData={conditionData}
+      setConditionData = {setConditionData}
+      nextPage = {nextPage}
+        />
       )
     } else if (questionState===-1){
       return(
       <div className='App'>
-        <h2>サーベイ開始! １問目へ</h2>
+        <h2>サーベイ</h2>
+        <h4>下記注意事項です。始める前に目を通してください</h4>
+        {/* <div style={{textAlign:"center"}}> */}
+        <div style={{fontSize:"14px", textAlign:"center"}}>次ページから始まる質問に、あまり考えることなく直感的にお答えください。</div>
+        <div style={{fontSize:"14px"}}>選択すると1秒後に自動的にページが推移します。</div>
+        <div style={{fontSize:"14px"}}>もしやり直す場合は最後のページまで進んで最初に戻ってください。</div>
+        <div style={{fontSize:"14px"}}>これはテストではなく、何が良い、悪いはありませんので、お気軽にお答えください。</div>
+        {/* </div> */}
+        <h2>では、サーベイを開始します。</h2>
         <button onClick={nextPage}>開始</button>
       </div>
     )
