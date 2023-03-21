@@ -10,11 +10,19 @@ import questionsData from "./Questions.json";
 import Attribute from './Attribute';
 import Conditions from "./Conditions";
 import {listCompanyNames} from "./graphql/queries";
-
+import OptionToggle from "./OptionToggle"; // ToggleOptionコンポーネントをインポート
+import { ChakraProvider,Flex} from "@chakra-ui/react";
 Amplify.configure(aws_exports)
 
 function Home({ signOut, user }) {
-  const answers = ["いつも当てはまる", "しばしば当てはまる", "たまに当てはまる", "ほとんど当てはまらない", "全く当てはまらない"];
+
+  const answers = [
+    {id:"1", label:"いつも当てはまる"},
+    {id:"2", label: "しばしば当てはまる"}, 
+    {id:"3", label: "たまに当てはまる"}, 
+    {id:"4", label: "ほとんど当てはまらない"},
+    {id:"5", label: "全く当てはまらない"}
+];
   const questions = questionsData;
 
   const [val, setVal] = useState("");
@@ -35,33 +43,36 @@ function Home({ signOut, user }) {
     const newCustomerName = values.data.listCompanyNames.items[0].companyName
     setCustomerName(newCustomerName)
 }
+  const [selectedOption, setSelectedOption] = useState(answers[0].id);
+    console.log("ここ2", selectedOption)
 
-useEffect(()=>{
-    getCustomerData()
-},[])
+    useEffect(()=>{
+        getCustomerData()
+    },[])
 
   console.log("AnswerList",answerList);
-  var score = 0;
-  const answerToScore = ((ans) => {
-    if (ans === answers[0]){
-      score = 1;
-    } else if (ans === answers[1]){
-      score = 2; 
-    } else if (ans === answers[2]){
-      score = 3;
-    } else if (ans === answers[3]){
-      score = 4;
-    } else if (ans === answers[4]){
-      score = 5;
-    }
-    setAnswerList([...answerList, score]);
-  });
+//   var score = 0;
+//   const answerToScore = ((ans) => {
+//     if (ans === answers[0]){
+//       score = 1;
+//     } else if (ans === answers[1]){
+//       score = 2; 
+//     } else if (ans === answers[2]){
+//       score = 3;
+//     } else if (ans === answers[3]){
+//       score = 4;
+//     } else if (ans === answers[4]){
+//       score = 5;
+//     }
+//     setAnswerList([...answerList, score]);
+//   });
 
-  const handleChange = ((e) => {
-    console.log("ここが知りたい", e.target.value)
-    setAnswerList([...answerList, e.target.value]);
-    setVal(e.target.value)
-    answerToScore(e.target.value)
+  const handleOptionSelect = ((option) => {
+    console.log("ここ", option.id)
+    setAnswerList([...answerList, Number(option.id)]);
+    setSelectedOption(option);
+    setVal(option.label)
+    // answerToScore(option.label)
     setTimeout(()=>{
     setTransition(false);
       },1000);
@@ -69,6 +80,7 @@ useEffect(()=>{
         setTransition(true);
         setQuestionState(questionState+1);
         setVal("")
+        setSelectedOption(answers[0].id)
       },1500);
     });
 
@@ -77,7 +89,6 @@ useEffect(()=>{
   }
 
   function firstTime () {
-    console.log("チェック")
     setFirstSecondTime("1回目")
     setTimeout(()=>{
       setTransition(true);
@@ -126,9 +137,9 @@ useEffect(()=>{
     }
   }
 
-  console.log("last FFMQ Score", lastAnswerList)
+//   console.log("last FFMQ Score", lastAnswerList)
   
-
+/// ここは元々コメントアウト
     // const backPage = () =>{
   //   setQuestionState(questionState-1);
   // }
@@ -146,8 +157,8 @@ useEffect(()=>{
     setQuestionState(-5);
     setChartDisplay(false)
   }
-  // console.log(transition);
-  // console.log("personID", personId);
+//   console.log(transition);
+//   console.log("personID", personId);
 
   if (questionState===-5){
     return(
@@ -229,8 +240,8 @@ useEffect(()=>{
     ) } else if (questionState===20 & chartDisplay===true)
     return(
     <>
-      <div style={{margin:"auto",width:"500px"}}>
-        <RaderChart 
+       <div style={{margin:"auto",width:"500px"}}>
+         <RaderChart 
             answerListChart={[answerList, lastAnswerList]}
             firstSecondTime = {firstSecondTime}
             />
@@ -244,25 +255,29 @@ useEffect(()=>{
         return (
           <div className="App">
             <div>
-            <p>{questions[questionState].question}</p>
-              {answers.map((answer) => {
-                return (
-                  <div key={answer}>
-                    <input
-                      id={answer}
-                      type="radio"
-                      value={answer}
-                      onChange={handleChange}
-                      checked={answer === val}
-                    />
-                    <label htmlFor={answer}>{answer}</label>
-                  </div>
-                );
-              })}
+            <div style={{ display: "flex", justifyContent: "center" , marginTop:"100px",fontSize:"20px"}}>{questions[questionState].question}</div>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+            <ChakraProvider>
+                <Flex alignItems="center" justifyContent="center" h="60vh">
+                    <Flex flexDirection="Column">
+                    {answers.map((option) => (
+                        <OptionToggle
+                        key={option.id}
+                        option={option}
+                        isSelected={option.id === selectedOption.id}
+                        onClick={() => handleOptionSelect(option)}
+                        />
+                    ))}
+                    </Flex>
+                </Flex>
+            </ChakraProvider>
             </div>
-          <p>選んだ答えは、{val}</p>
-          </div>
-        );
+            <p style={{fontSize:"20px"}}>
+                選んだ答えは、<span style={{fontSize:"25px"}}>{val}</span>
+            </p>
+        </div>
+    </div>
+)
       } else {
         if (questionState<19){
         return(
