@@ -11,7 +11,7 @@ import Attribute from './Attribute';
 import Conditions from "./Conditions";
 import {listCompanyNames} from "./graphql/queries";
 import OptionToggle from "./OptionToggle"; // ToggleOptionコンポーネントをインポート
-import { ChakraProvider,Flex} from "@chakra-ui/react";
+import { ChakraProvider,Flex, Button,Box, FormControl, FormLabel, Input, Text} from "@chakra-ui/react";
 Amplify.configure(aws_exports)
 
 function Home({ signOut, user }) {
@@ -51,21 +51,6 @@ function Home({ signOut, user }) {
     },[])
 
   console.log("AnswerList",answerList);
-//   var score = 0;
-//   const answerToScore = ((ans) => {
-//     if (ans === answers[0]){
-//       score = 1;
-//     } else if (ans === answers[1]){
-//       score = 2; 
-//     } else if (ans === answers[2]){
-//       score = 3;
-//     } else if (ans === answers[3]){
-//       score = 4;
-//     } else if (ans === answers[4]){
-//       score = 5;
-//     }
-//     setAnswerList([...answerList, score]);
-//   });
 
   const handleOptionSelect = ((option) => {
     console.log("ここ", option.id)
@@ -162,8 +147,9 @@ function Home({ signOut, user }) {
 
   if (questionState===-5){
     return(
+    <ChakraProvider>
       <div className="App">
-        <form>
+        {/* <form>
           <h2>個人ID（4桁数字）の入力をお願いします</h2>
           <input
             name = "personIdInput"
@@ -171,12 +157,47 @@ function Home({ signOut, user }) {
             onChange={(e) => setPersonId(e.target.value)}>
           </input>
           <p style={{fontSize:"12px"}}>確認ください→ {personId}</p>
-        </form>
-        <h3>下記の組織名の確認をお願いします</h3>
-        <p style={{fontSize:"16px"}}>{customerName}</p>
-        <h3>確認ができたら下記のボタンを押して次へ進んでください</h3>
-        <button onClick={nextPage} name="personIdNext">次へ</button>
+        </form> */}
+        <Box as="form">
+            <Text fontSize="xl" fontWeight="bold" marginTop="25px">個人ID（4桁数字）の入力をお願いします</Text>
+                <FormControl>
+                    <FormLabel htmlFor="personIdInput" srOnly>個人ID入力</FormLabel>
+                    <Input
+                    name="personIdInput"
+                    type="number"
+                    max="9999"
+                    min="1000"
+                    step="1"
+                    placeholder="４桁の数字-半角"
+                    onChange={(e) => setPersonId(e.target.value)}
+                    width="200px"
+                    textAlign={"center"}
+                    fontSize={"18px"}
+                    marginTop={"20px"}
+                    marginBottom={"10px"}
+                    />
+                </FormControl>
+            <Text fontSize="16px">確認ください→ <span style={{color:"#23A6BA",fontSize:"20px"}}>{personId}</span></Text>
+        </Box>
+        <Text fontSize="xl" fontWeight="bold" marginTop="25px">
+            下記の組織名の確認をお願いします</Text>
+            <Text fontSize="25px" fontWeight="bold" marginTop="10px" color="#23A6BA">
+                {customerName}</Text>
+            <Text fontSize="xl" fontWeight="bold" marginTop="25px">確認ができたら下記のボタンを押して次へ進んでください</Text>
+        <Button 
+            onClick={nextPage} 
+            name="personIdNext"
+            size="md"
+            fontSize="md"
+            fontWeight="bold"
+            color="white" // テキストの色を変更する場合
+            bg="#23A6BA" // 色コードで背景色を指定
+            _hover={{ bg: "#2BB1C5" }} // 色コードでホバー時の背景色を指定
+            _active={{ bg: "#1E8A9D" }} // 色コードでアクティブ時の背景色を指定
+            marginTop="16px"
+             >次へ</Button>
       </div>
+      </ChakraProvider>
       )
     } else if (questionState===-4){
       return(
