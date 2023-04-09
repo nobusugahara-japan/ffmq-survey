@@ -73,6 +73,7 @@ useEffect(()=>{
     });
 
   const nextPage = (event)=>{
+    event.preventDefault();
     setQuestionState(questionState+1);
   }
 
@@ -155,6 +156,7 @@ useEffect(()=>{
         <form>
           <h2>個人ID（4桁数字）の入力をお願いします</h2>
           <input
+            id="person_id_input"
             name = "personIdInput"
             className="inputText" type="number" max="9999" min="1000" step="1" placeholder="４桁の数字-手入力OK"
             onChange={(e) => setPersonId(e.target.value)}>
@@ -174,8 +176,8 @@ useEffect(()=>{
            <h2>1回目ですか、それとも2回目以降でしょうか？</h2>
           </div>
           <div>
-            <button name="1stTime" style={{width:"80px",marginRight:"10px"}} onClick={firstTime}>1回目</button>
-            <button name="2ndTime" style={{width:"80px"}} onClick={secondTime}>2回目以降</button>
+            <button id="first_time_button" name="1stTime" style={{width:"80px",marginRight:"10px"}} onClick={firstTime}>1回目</button>
+            <button id="second_time_button" name="2stTime" style={{width:"80px",marginRight:"10px"}} onClick={secondTime}>2回目</button>
             <p>{firstSecondTime}</p>
           </div>
         <p>最初からやり直す場合は下記のボタンを押してください</p>
@@ -216,7 +218,7 @@ useEffect(()=>{
         <div style={{fontSize:"14px"}}>これはテストではなく、何が良い、悪いはありませんので、お気軽にお答えください。</div>
         {/* </div> */}
         <h2>では、サーベイを開始します。</h2>
-        <button onClick={nextPage}>開始</button>
+        <button onClick={nextPage} name="surveyStart">開始</button>
       </div>
     )
     } else if (questionState===20 & chartDisplay===false){
@@ -224,7 +226,7 @@ useEffect(()=>{
       <div className="App">
         <h2>終了しました!お疲れ様でした</h2>
         <p> 下記の完了ボタンを押して下さい。チャートが表示されます</p>
-        <button onClick={fixResult}>完了しました</button>
+        <button id="completion_button" onClick={fixResult}>完了しました</button>
       </div>
     ) } else if (questionState===20 & chartDisplay===true)
     return(
@@ -245,17 +247,17 @@ useEffect(()=>{
           <div className="App">
             <div>
             <p>{questions[questionState].question}</p>
-              {answers.map((answer) => {
+              {answers.map((answer, index) => {
                 return (
                   <div key={answer}>
                     <input
-                      id={answer}
+                      id={`question_${questionState}_answer_${index}`}
                       type="radio"
                       value={answer}
                       onChange={handleChange}
                       checked={answer === val}
                     />
-                    <label htmlFor={answer}>{answer}</label>
+                    <label htmlFor={`question_${questionState}_answer_${index}`}>{answer}</label>
                   </div>
                 );
               })}

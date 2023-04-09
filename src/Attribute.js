@@ -33,7 +33,7 @@ const Attribute = (props) => {
         <div className="App">
         <h4>あなたの属性について教えてください</h4>
         <p htmlFor="dropdown">職種</p>
-            <select id="dropdown" 
+            <select name="jobDropdown" 
                 value={props.attributeData[0]} 
                 onChange={jobOption} 
                 style={{width:"200px", textAlign:"center", fontSize:"15px"}}
@@ -46,7 +46,7 @@ const Attribute = (props) => {
          <p style={{fontSize:"10px"}}>  {props.attributeData[0]}</p>
 
         <p htmlFor="dropdown">年齢（年代）</p>
-            <select id="dropdown" 
+            <select id="age_dropdown" 
                 value={props.attributeData[1]} 
                 onChange={ageOption}
                 style={{width:"200px", textAlign:"center", fontSize:"15px"}}
@@ -61,7 +61,7 @@ const Attribute = (props) => {
             <p style={{fontSize:"10px"}}>  {props.attributeData[1]}</p>
 
          <p htmlFor="dropdown">性別</p>
-            <select id="dropdown" 
+            <select id="gender_dropdown" 
                 value={props.attributeData[2]} 
                 onChange={genderOption}
                 style={{width:"200px", textAlign:"center", fontSize:"15px"}}
@@ -74,7 +74,7 @@ const Attribute = (props) => {
          <p style={{fontSize:"10px"}}>{props.attributeData[2]}</p>
 
         <h3>入力が完了したら、下記のボタンを押して次へ進んでください</h3>
-        <button onClick={sendData}>次へ</button>
+        <button name="nextButton" onClick={sendData}>次へ</button>
         </div>
      )
     }

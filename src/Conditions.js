@@ -49,6 +49,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="sholder_pain_1"
             value="ひどく痛む"
             checked={props.conditionData[0] === 'ひどく痛む'}
             onChange={sholderPainOption}
@@ -58,6 +59,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="sholder_pain_2"
             value="少し痛む"
             checked={props.conditionData[0]=== '少し痛む'}
             onChange={sholderPainOption}
@@ -67,6 +69,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="sholder_pain_3"
             value="ほとんど感じない"
             checked={props.conditionData[0] === 'ほとんど感じない'}
             onChange={sholderPainOption}
@@ -78,6 +81,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="sleep_condition_1"
             value="あまり眠れない"
             checked={props.conditionData[1] === 'あまり眠れない'}
             onChange={sleepConditionOption}
@@ -87,6 +91,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="sleep_condition_2"
             value="夜中に時々起きてしまう"
             checked={props.conditionData[1]=== '夜中に時々起きてしまう'}
             onChange={sleepConditionOption}
@@ -96,6 +101,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="sleep_condition_3"
             value="問題を感じない"
             checked={props.conditionData[1] === '問題を感じない'}
             onChange={sleepConditionOption}
@@ -107,6 +113,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="mind_condition_1"
             value="すぐに起こったりイライラする"
             checked={props.conditionData[2] === 'すぐに起こったりイライラする'}
             onChange={mindConditionOption}
@@ -116,6 +123,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="mind_condition_2"
             value="怒りやイライラが起こるが外に表すことはない"
             checked={props.conditionData[2]=== '怒りやイライラが起こるが外に表すことはない'}
             onChange={mindConditionOption}
@@ -125,6 +133,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="mind_condition_3"
             value="ほどんと怒りやイライラを感じない"
             checked={props.conditionData[2] === 'ほどんと怒りやイライラを感じない'}
             onChange={mindConditionOption}
@@ -136,6 +145,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="focus_condition_1"
             value="集中しようとしても出来ないことが多い"
             checked={props.conditionData[3] === '集中しようとしても出来ないことが多い'}
             onChange={focusConditionOption}
@@ -145,6 +155,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="focus_condition_2"
             value="集中することは出来るが長続きしない"
             checked={props.conditionData[3]=== '集中することは出来るが長続きしない'}
             onChange={focusConditionOption}
@@ -154,6 +165,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="focus_condition_3"
             value="集中したい時は、多くの場合、集中することが出来る"
             checked={props.conditionData[3] === '集中したい時は、多くの場合、集中することが出来る'}
             onChange={focusConditionOption}
@@ -165,6 +177,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="relationship_1"
             value="親しい人にも会うのが億劫に感じる"
             checked={props.conditionData[4] === '親しい人にも会うのが億劫に感じる'}
             onChange={relationshipOption}
@@ -174,6 +187,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="relationship_2"
             value="あまり親しくない人には、出来るだけ会いたくない"
             checked={props.conditionData[4]=== 'あまり親しくない人には、出来るだけ会いたくない'}
             onChange={relationshipOption}
@@ -183,6 +197,7 @@ const Conditions= (props) => {
         <p>
             <input
             type="radio"
+            id="relationship_3"
             value="人と会うことを苦痛に感じない"
             checked={props.conditionData[4] === '人と会うことを苦痛に感じない'}
             onChange={relationshipOption}
