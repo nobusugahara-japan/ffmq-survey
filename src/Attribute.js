@@ -101,7 +101,7 @@ const Attribute = (props) => {
       
 
     return (
-        <div className="App">
+        <div className="App content">
           <Text>職種</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
           {jobOptions.map((option) => (

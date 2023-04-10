@@ -56,6 +56,11 @@
   font-size: 10px;
   margin-right: 10px;
 }
+
+.content {
+  padding-bottom: 60px; /* フッターの高さと同じかそれ以上の値 */
+}
+
 /* 
 .footer {
   background-color: #23A6BA;

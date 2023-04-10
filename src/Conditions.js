@@ -119,7 +119,7 @@ const Conditions= (props) => {
       };
 
       return (
-        <div className="App">
+        <div className="App content">
           <Text>1. 肩こり・変頭痛</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
           {sholderPainOptions.map((option) => (
