@@ -10,9 +10,21 @@
 }
 
 .logo {
-  height: 50px;
-  margin-left: 10px;
+  width:200px;
+  height: 45px;
+  left: 20px;
+  top:20px;
 }
+
+@media (max-width: 767px) {
+  .logo {
+    width: 100px; /* スマホでのロゴサイズ */
+    height:23px;
+    justify-content: center;
+    position:relative;
+  }
+}
+
 
 .footer {
   background-color:#23A6BA ;
