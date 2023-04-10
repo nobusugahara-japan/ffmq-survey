@@ -22,6 +22,7 @@ const Admin =() => {
         API.graphql(graphqlOperation(createCompanyName, 
             {input:{companyName:orgName}}))
             .then(()=>{console.log("送信成功")})
+        getOrgData()
     }
 
     return(

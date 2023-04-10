@@ -33,7 +33,6 @@ function Home({ signOut, user }) {
   const [firstSecondTime, setFirstSecondTime] = useState("")
   const [questionState, setQuestionState] = useState(-5)
   const [lastAnswerList, setLastAnswerList] = useState([])
-  const [attributeData, setAttributeData] = useState(["選択なし","選択なし","選択なし"])
   const [conditionData, setConditionData] = useState(["選択なし","選択なし","選択なし"])
   const [customerName, setCustomerName] = useState("表示されていない場合、管理者にご連絡ください")
 
@@ -122,13 +121,6 @@ function Home({ signOut, user }) {
     }
   }
 
-//   console.log("last FFMQ Score", lastAnswerList)
-  
-/// ここは元々コメントアウト
-    // const backPage = () =>{
-  //   setQuestionState(questionState-1);
-  // }
-
   const fixResult = () =>{
     console.log("ここで確認")
     API.graphql(graphqlOperation(createFfmq2Data, 
@@ -142,22 +134,11 @@ function Home({ signOut, user }) {
     setQuestionState(-5);
     setChartDisplay(false)
   }
-//   console.log(transition);
-//   console.log("personID", personId);
 
   if (questionState===-5){
     return(
     <ChakraProvider>
       <div className="App">
-        {/* <form>
-          <h2>個人ID（4桁数字）の入力をお願いします</h2>
-          <input
-            name = "personIdInput"
-            className="inputText" type="number" max="9999" min="1000" step="1" placeholder="４桁の数字-手入力OK"
-            onChange={(e) => setPersonId(e.target.value)}>
-          </input>
-          <p style={{fontSize:"12px"}}>確認ください→ {personId}</p>
-        </form> */}
         <Box as="form">
             <Text fontSize="xl" fontWeight="bold" marginTop="25px">個人ID（4桁数字）の入力をお願いします</Text>
                 <FormControl>
@@ -202,24 +183,76 @@ function Home({ signOut, user }) {
     } else if (questionState===-4){
       return(
         <div className="App">
-          <div>
-           <h2>1回目ですか、それとも2回目以降でしょうか？</h2>
+            <Box>
+              <Text fontSize="xl" fontWeight="bold" marginTop="25px">
+                1回目ですか、それとも2回目以降でしょうか？
+              </Text>
+            </Box>
+            <Box>
+              <Button
+                onClick={firstTime}
+                name="1stTime"
+                size="lg"
+                marginRight="20px"
+                marginTop="10px"
+                fontSize="lg"
+                fontWeight="bold"
+                color="white"
+                bg="#23A6BA"
+                _hover={{ bg: "#2BB1C5" }}
+                _active={{ bg: "#1E8A9D" }}
+                height="30px"
+                width="100px"
+                borderRadius="10px"
+              >
+                1回目
+              </Button>
+                <Button
+                  name="2ndTime"
+                  size="lg"
+                  onClick={secondTime}
+                  marginTop="10px"
+                  fontSize="lg"
+                  fontWeight="bold"
+                  color="white"
+                  bg="#23A6BA"
+                  _hover={{ bg: "#2BB1C5" }}
+                  _active={{ bg: "#1E8A9D" }}
+                  height="30px"
+                  width="100px"
+                  borderRadius="10px"
+                >
+                  2回目以降
+                </Button>
+                <Text fontSize="xl" fontWeight="bold" marginTop="10px">
+                  {firstSecondTime}
+                </Text>
+              </Box>
+              {/* <Text fontSize="14px" marginTop="70px">
+                最初からやり直す場合は下記のボタンを押してください
+              </Text>
+              <Button
+                  onClick={returnFirst}
+                  size="lg"
+                  fontWeight="bold"
+                  fontSize="lg"
+                  color="white"
+                  bg="grey"
+                  _hover={{ bg: "#2BB1C5" }}
+                  _active={{ bg: "#1E8A9D" }}
+                  marginTop="16px"
+                  height="30px"
+                  width="100px"
+                  borderRadius="10px"
+                >
+                  最初に戻る
+                </Button> */}
           </div>
-          <div>
-            <button name="1stTime" style={{width:"80px",marginRight:"10px"}} onClick={firstTime}>1回目</button>
-            <button name="2ndTime" style={{width:"80px"}} onClick={secondTime}>2回目以降</button>
-            <p>{firstSecondTime}</p>
-          </div>
-        <p>最初からやり直す場合は下記のボタンを押してください</p>
-        <button  onClick={returnFirst}>最初に戻る</button>
-        </div>
       )
     } else if (questionState===-3){
       return(
       <Attribute
       personId = {personId}
-      attributeData={attributeData}
-      setAttributeData = {setAttributeData}
       questionState = {questionState}
       setQuestionState = {setQuestionState}
       customerName = {customerName}
@@ -248,7 +281,21 @@ function Home({ signOut, user }) {
         <div style={{fontSize:"14px"}}>これはテストではなく、何が良い、悪いはありませんので、お気軽にお答えください。</div>
         {/* </div> */}
         <h2>では、サーベイを開始します。</h2>
-        <button onClick={nextPage}>開始</button>
+        <Button
+          onClick={nextPage}
+          size="lg"
+          fontWeight="bold"
+          fontSize="lg"
+          color="white"
+          bg="#23A6BA"
+          _hover={{ bg: "#2BB1C5" }}
+          _active={{ bg: "#008080"}}
+          marginTop="16px"
+          height="30px"
+          width="100px"
+          borderRadius="10px"
+          >開始
+        </Button>
       </div>
     )
     } else if (questionState===20 & chartDisplay===false){

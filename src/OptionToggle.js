@@ -4,7 +4,7 @@ function OptionToggle({ option, isSelected, onClick }) {
 
     const [bgColorSelected, bgColorNotSelected] = useToken("colors", [
       "#23A6BA",
-      "gray.200"
+      "#c0c0c0",
     ]);
   
     return (
