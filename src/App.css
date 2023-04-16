@@ -18,10 +18,12 @@
 
 @media (max-width: 767px) {
   .logo {
-    width: 100px; /* スマホでのロゴサイズ */
-    height:23px;
-    left: -50%;
+    width: 200px; /* スマホでのロゴサイズ */
+    margin-left:auto;
+    margin-right:auto;
     position:relative;
+    display:block;
+    object-fit:contain;
   }
 }
 
