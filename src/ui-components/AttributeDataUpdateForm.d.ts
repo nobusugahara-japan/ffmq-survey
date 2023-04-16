@@ -5,9 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import { AttributeData } from "../models";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { AttributeData } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -23,12 +23,12 @@ export declare type AttributeDataUpdateFormValidationValues = {
     personId?: ValidationFunction<number>;
     attributeData?: ValidationFunction<string>;
 };
-export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
+export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type AttributeDataUpdateFormOverridesProps = {
-    AttributeDataUpdateFormGrid?: FormProps<GridProps>;
-    companyName?: FormProps<TextFieldProps>;
-    personId?: FormProps<TextFieldProps>;
-    attributeData?: FormProps<TextFieldProps>;
+    AttributeDataUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    companyName?: PrimitiveOverrideProps<TextFieldProps>;
+    personId?: PrimitiveOverrideProps<TextFieldProps>;
+    attributeData?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type AttributeDataUpdateFormProps = React.PropsWithChildren<{
     overrides?: AttributeDataUpdateFormOverridesProps | undefined | null;
@@ -38,8 +38,7 @@ export declare type AttributeDataUpdateFormProps = React.PropsWithChildren<{
     onSubmit?: (fields: AttributeDataUpdateFormInputValues) => AttributeDataUpdateFormInputValues;
     onSuccess?: (fields: AttributeDataUpdateFormInputValues) => void;
     onError?: (fields: AttributeDataUpdateFormInputValues, errorMessage: string) => void;
-    onCancel?: () => void;
     onChange?: (fields: AttributeDataUpdateFormInputValues) => AttributeDataUpdateFormInputValues;
     onValidate?: AttributeDataUpdateFormValidationValues;
-}>;
+} & React.CSSProperties>;
 export default function AttributeDataUpdateForm(props: AttributeDataUpdateFormProps): React.ReactElement;

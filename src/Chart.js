@@ -31,7 +31,7 @@ const RaderChart = (props) => {
           scores[4] = scores[4]+reverseFunc(questionsData, answers, i)
       }
     }
-    const scores2 = scores.map(score=>Math.round(score/4*10)/10)
+    const scores2 = scores.map(score=>Math.round(score/3*10)/10)
     return scores2
   }
 

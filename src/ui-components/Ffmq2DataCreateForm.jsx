@@ -6,10 +6,10 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { fetchByPath, validateField } from "./utils";
-import { Ffmq2Data } from "../models";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { Ffmq2Data as Ffmq2Data0 } from "../models";
+import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
 export default function Ffmq2DataCreateForm(props) {
   const {
@@ -17,22 +17,21 @@ export default function Ffmq2DataCreateForm(props) {
     onSuccess,
     onError,
     onSubmit,
-    onCancel,
     onValidate,
     onChange,
     overrides,
     ...rest
   } = props;
   const initialValues = {
-    companyName: undefined,
-    personId: undefined,
-    Ffmq2Data: undefined,
+    companyName: "",
+    personId: "",
+    Ffmq2Data: "",
   };
   const [companyName, setCompanyName] = React.useState(
     initialValues.companyName
   );
   const [personId, setPersonId] = React.useState(initialValues.personId);
-  const [FfmqData, setFfmqData] = React.useState(initialValues.Ffmq2Data);
+  const [ffmqData, setFfmqData] = React.useState(initialValues.Ffmq2Data);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setCompanyName(initialValues.companyName);
@@ -45,7 +44,15 @@ export default function Ffmq2DataCreateForm(props) {
     personId: [],
     Ffmq2Data: [],
   };
-  const runValidationTasks = async (fieldName, value) => {
+  const runValidationTasks = async (
+    fieldName,
+    currentValue,
+    getDisplayValue
+  ) => {
+    const value =
+      currentValue && getDisplayValue
+        ? getDisplayValue(currentValue)
+        : currentValue;
     let validationResponse = validateField(value, validations[fieldName]);
     const customValidator = fetchByPath(onValidate, fieldName);
     if (customValidator) {
@@ -65,7 +72,7 @@ export default function Ffmq2DataCreateForm(props) {
         let modelFields = {
           companyName,
           personId,
-          Ffmq2Data: FfmqData,
+          Ffmq2Data: ffmqData,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -90,7 +97,12 @@ export default function Ffmq2DataCreateForm(props) {
           modelFields = onSubmit(modelFields);
         }
         try {
-          await DataStore.save(new Ffmq2Data(modelFields));
+          Object.entries(modelFields).forEach(([key, value]) => {
+            if (typeof value === "string" && value.trim() === "") {
+              modelFields[key] = undefined;
+            }
+          });
+          await DataStore.save(new Ffmq2Data0(modelFields));
           if (onSuccess) {
             onSuccess(modelFields);
           }
@@ -103,20 +115,21 @@ export default function Ffmq2DataCreateForm(props) {
           }
         }
       }}
-      {...rest}
       {...getOverrideProps(overrides, "Ffmq2DataCreateForm")}
+      {...rest}
     >
       <TextField
         label="Company name"
         isRequired={false}
         isReadOnly={false}
+        value={companyName}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               companyName: value,
               personId,
-              Ffmq2Data: FfmqData,
+              Ffmq2Data: ffmqData,
             };
             const result = onChange(modelFields);
             value = result?.companyName ?? value;
@@ -137,20 +150,16 @@ export default function Ffmq2DataCreateForm(props) {
         isReadOnly={false}
         type="number"
         step="any"
+        value={personId}
         onChange={(e) => {
-          let value = parseInt(e.target.value);
-          if (isNaN(value)) {
-            setErrors((errors) => ({
-              ...errors,
-              personId: "Value must be a valid number",
-            }));
-            return;
-          }
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
               companyName,
               personId: value,
-              Ffmq2Data: FfmqData,
+              Ffmq2Data: ffmqData,
             };
             const result = onChange(modelFields);
             value = result?.personId ?? value;
@@ -169,13 +178,14 @@ export default function Ffmq2DataCreateForm(props) {
         label="Ffmq2 data"
         isRequired={false}
         isReadOnly={false}
+        value={ffmqData}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               companyName,
               personId,
-              Ffmq2Data: FfmqData,
+              Ffmq2Data: value,
             };
             const result = onChange(modelFields);
             value = result?.Ffmq2Data ?? value;
@@ -185,7 +195,7 @@ export default function Ffmq2DataCreateForm(props) {
           }
           setFfmqData(value);
         }}
-        onBlur={() => runValidationTasks("Ffmq2Data", FfmqData)}
+        onBlur={() => runValidationTasks("Ffmq2Data", ffmqData)}
         errorMessage={errors.Ffmq2Data?.errorMessage}
         hasError={errors.Ffmq2Data?.hasError}
         {...getOverrideProps(overrides, "Ffmq2Data")}
@@ -197,18 +207,16 @@ export default function Ffmq2DataCreateForm(props) {
         <Button
           children="Clear"
           type="reset"
-          onClick={resetStateValues}
+          onClick={(event) => {
+            event.preventDefault();
+            resetStateValues();
+          }}
           {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
-        <Flex {...getOverrideProps(overrides, "RightAlignCTASubFlex")}>
-          <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
+        <Flex
+          gap="15px"
+          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
+        >
           <Button
             children="Submit"
             type="submit"

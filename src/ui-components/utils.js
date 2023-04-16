@@ -7,7 +7,7 @@
 /* eslint-disable */
 export const validateField = (value, validations) => {
   for (const validation of validations) {
-    if (value === undefined || value === "") {
+    if (value === undefined || value === "" || value === null) {
       if (validation.type === "Required") {
         return {
           hasError: true,
@@ -31,7 +31,7 @@ const checkValidation = (value, validation) => {
     switch (validation.type) {
       case "LessThanChar":
         return {
-          hasError: !(value.length < validation.numValues[0]),
+          hasError: !(value.length <= validation.numValues[0]),
           errorMessage:
             validation.validationMessage ||
             `The value must be shorter than ${validation.numValues[0]}`,

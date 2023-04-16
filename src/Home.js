@@ -128,11 +128,6 @@ useEffect(()=>{
   }
 
   console.log("last FFMQ Score", lastAnswerList)
-  
-
-    // const backPage = () =>{
-  //   setQuestionState(questionState-1);
-  // }
 
   const fixResult = () =>{
     console.log("ここで確認")
@@ -147,8 +142,6 @@ useEffect(()=>{
     setQuestionState(-5);
     setChartDisplay(false)
   }
-  // console.log(transition);
-  // console.log("personID", personId);
 
   if (questionState===-5){
     return(
@@ -221,14 +214,14 @@ useEffect(()=>{
         <button onClick={nextPage} name="surveyStart">開始</button>
       </div>
     )
-    } else if (questionState===20 & chartDisplay===false){
+    } else if (questionState===15 & chartDisplay===false){
       return(
       <div className="App">
         <h2>終了しました!お疲れ様でした</h2>
         <p> 下記の完了ボタンを押して下さい。チャートが表示されます</p>
         <button id="completion_button" onClick={fixResult}>完了しました</button>
       </div>
-    ) } else if (questionState===20 & chartDisplay===true)
+    ) } else if (questionState===15 & chartDisplay===true)
     return(
     <>
       <div style={{margin:"auto",width:"500px"}}>
@@ -271,7 +264,7 @@ useEffect(()=>{
           <>
           <h3 className="App">{questionState+2} 問目へ</h3>
           </>
-        )} else if (questionState===19){
+        )} else if (questionState===14){
           return(
           <h3 className="App">結果の表示</h3>
         )};

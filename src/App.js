@@ -1,8 +1,12 @@
 import React from 'react';
+import { Amplify } from 'aws-amplify';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Test3 from './Test3';
 import Admin from './Admin';
 import './App.css';
+// import {withAuthenticator} from "@aws-amplify/ui-react";
+// import '@aws-amplify/ui-react/styles.css';
+
 
 function App() {
   return (

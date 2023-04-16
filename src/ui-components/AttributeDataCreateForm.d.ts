@@ -5,8 +5,8 @@
  **************************************************************************/
 
 import * as React from "react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -22,12 +22,12 @@ export declare type AttributeDataCreateFormValidationValues = {
     personId?: ValidationFunction<number>;
     attributeData?: ValidationFunction<string>;
 };
-export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
+export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type AttributeDataCreateFormOverridesProps = {
-    AttributeDataCreateFormGrid?: FormProps<GridProps>;
-    companyName?: FormProps<TextFieldProps>;
-    personId?: FormProps<TextFieldProps>;
-    attributeData?: FormProps<TextFieldProps>;
+    AttributeDataCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    companyName?: PrimitiveOverrideProps<TextFieldProps>;
+    personId?: PrimitiveOverrideProps<TextFieldProps>;
+    attributeData?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type AttributeDataCreateFormProps = React.PropsWithChildren<{
     overrides?: AttributeDataCreateFormOverridesProps | undefined | null;
@@ -36,8 +36,7 @@ export declare type AttributeDataCreateFormProps = React.PropsWithChildren<{
     onSubmit?: (fields: AttributeDataCreateFormInputValues) => AttributeDataCreateFormInputValues;
     onSuccess?: (fields: AttributeDataCreateFormInputValues) => void;
     onError?: (fields: AttributeDataCreateFormInputValues, errorMessage: string) => void;
-    onCancel?: () => void;
     onChange?: (fields: AttributeDataCreateFormInputValues) => AttributeDataCreateFormInputValues;
     onValidate?: AttributeDataCreateFormValidationValues;
-}>;
+} & React.CSSProperties>;
 export default function AttributeDataCreateForm(props: AttributeDataCreateFormProps): React.ReactElement;

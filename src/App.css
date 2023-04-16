@@ -20,7 +20,7 @@
   .logo {
     width: 100px; /* スマホでのロゴサイズ */
     height:23px;
-    justify-content: center;
+    left: -50%;
     position:relative;
   }
 }

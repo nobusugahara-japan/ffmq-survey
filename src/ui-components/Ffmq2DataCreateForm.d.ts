@@ -5,8 +5,8 @@
  **************************************************************************/
 
 import * as React from "react";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -22,12 +22,12 @@ export declare type Ffmq2DataCreateFormValidationValues = {
     personId?: ValidationFunction<number>;
     Ffmq2Data?: ValidationFunction<string>;
 };
-export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
+export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type Ffmq2DataCreateFormOverridesProps = {
-    Ffmq2DataCreateFormGrid?: FormProps<GridProps>;
-    companyName?: FormProps<TextFieldProps>;
-    personId?: FormProps<TextFieldProps>;
-    Ffmq2Data?: FormProps<TextFieldProps>;
+    Ffmq2DataCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    companyName?: PrimitiveOverrideProps<TextFieldProps>;
+    personId?: PrimitiveOverrideProps<TextFieldProps>;
+    Ffmq2Data?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type Ffmq2DataCreateFormProps = React.PropsWithChildren<{
     overrides?: Ffmq2DataCreateFormOverridesProps | undefined | null;
@@ -36,8 +36,7 @@ export declare type Ffmq2DataCreateFormProps = React.PropsWithChildren<{
     onSubmit?: (fields: Ffmq2DataCreateFormInputValues) => Ffmq2DataCreateFormInputValues;
     onSuccess?: (fields: Ffmq2DataCreateFormInputValues) => void;
     onError?: (fields: Ffmq2DataCreateFormInputValues, errorMessage: string) => void;
-    onCancel?: () => void;
     onChange?: (fields: Ffmq2DataCreateFormInputValues) => Ffmq2DataCreateFormInputValues;
     onValidate?: Ffmq2DataCreateFormValidationValues;
-}>;
+} & React.CSSProperties>;
 export default function Ffmq2DataCreateForm(props: Ffmq2DataCreateFormProps): React.ReactElement;

@@ -5,9 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import { ConditionData } from "../models";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { ConditionData as ConditionData0 } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -23,23 +23,22 @@ export declare type ConditionDataUpdateFormValidationValues = {
     personId?: ValidationFunction<number>;
     ConditionData?: ValidationFunction<string>;
 };
-export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
+export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ConditionDataUpdateFormOverridesProps = {
-    ConditionDataUpdateFormGrid?: FormProps<GridProps>;
-    CompanyName?: FormProps<TextFieldProps>;
-    personId?: FormProps<TextFieldProps>;
-    ConditionData?: FormProps<TextFieldProps>;
+    ConditionDataUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    CompanyName?: PrimitiveOverrideProps<TextFieldProps>;
+    personId?: PrimitiveOverrideProps<TextFieldProps>;
+    ConditionData?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type ConditionDataUpdateFormProps = React.PropsWithChildren<{
     overrides?: ConditionDataUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    conditionData?: ConditionData;
+    conditionData?: ConditionData0;
     onSubmit?: (fields: ConditionDataUpdateFormInputValues) => ConditionDataUpdateFormInputValues;
     onSuccess?: (fields: ConditionDataUpdateFormInputValues) => void;
     onError?: (fields: ConditionDataUpdateFormInputValues, errorMessage: string) => void;
-    onCancel?: () => void;
     onChange?: (fields: ConditionDataUpdateFormInputValues) => ConditionDataUpdateFormInputValues;
     onValidate?: ConditionDataUpdateFormValidationValues;
-}>;
+} & React.CSSProperties>;
 export default function ConditionDataUpdateForm(props: ConditionDataUpdateFormProps): React.ReactElement;

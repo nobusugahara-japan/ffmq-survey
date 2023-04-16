@@ -1,17 +1,17 @@
 import './App.css';
 import { useEffect, useState } from "react";
 import RaderChart from "./Chart";
-import {API, graphqlOperation, Amplify, AmazonPersonalizeProvider} from "aws-amplify";
+import {API, graphqlOperation, Auth, Amplify} from "aws-amplify";
 import {listFfmq2Data} from "./graphql/queries";
 import {createFfmq2Data} from "./graphql/mutations";
 import aws_exports from "./aws-exports";
-import {withAuthenticator} from "@aws-amplify/ui-react";
 import questionsData from "./Questions.json";
 import Attribute from './Attribute';
 import Conditions from "./Conditions";
 import {listCompanyNames} from "./graphql/queries";
 import OptionToggle from "./OptionToggle"; // ToggleOptionコンポーネントをインポート
 import { ChakraProvider,Flex, Button,Box, FormControl, FormLabel, Input, Text} from "@chakra-ui/react";
+
 Amplify.configure(aws_exports)
 
 function Home({ signOut, user }) {
@@ -39,11 +39,19 @@ function Home({ signOut, user }) {
   const getCustomerData = async () => {
     const values = await API.graphql(graphqlOperation(listCompanyNames))
     console.log("CompName", values);
-    const newCustomerName = values.data.listCompanyNames.items[0].companyName
-    setCustomerName(newCustomerName)
-}
+     // ソートして最新のデータを取得する
+    const sortedItems = values.data.listCompanyNames.items.sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+
+    // 最新のデータを取得する
+    const latestItem = sortedItems[0];
+    const newCustomerName = latestItem.companyName;
+
+    setCustomerName(newCustomerName);
+  }
+
   const [selectedOption, setSelectedOption] = useState(answers[0].id);
-    console.log("ここ2", selectedOption)
 
     useEffect(()=>{
         getCustomerData()
@@ -52,7 +60,7 @@ function Home({ signOut, user }) {
   console.log("AnswerList",answerList);
 
   const handleOptionSelect = ((option) => {
-    console.log("ここ", option.id)
+    console.log("スコア", option.id)
     setAnswerList([...answerList, Number(option.id)]);
     setSelectedOption(option);
     setVal(option.label)
@@ -122,7 +130,7 @@ function Home({ signOut, user }) {
   }
 
   const fixResult = () =>{
-    console.log("ここで確認")
+    console.log("送信")
     API.graphql(graphqlOperation(createFfmq2Data, 
       {input:{personId:personId, Ffmq2Data:answerList}}))
       .then(()=>{console.log("送信成功")})
@@ -228,25 +236,6 @@ function Home({ signOut, user }) {
                   {firstSecondTime}
                 </Text>
               </Box>
-              {/* <Text fontSize="14px" marginTop="70px">
-                最初からやり直す場合は下記のボタンを押してください
-              </Text>
-              <Button
-                  onClick={returnFirst}
-                  size="lg"
-                  fontWeight="bold"
-                  fontSize="lg"
-                  color="white"
-                  bg="grey"
-                  _hover={{ bg: "#2BB1C5" }}
-                  _active={{ bg: "#1E8A9D" }}
-                  marginTop="16px"
-                  height="30px"
-                  width="100px"
-                  borderRadius="10px"
-                >
-                  最初に戻る
-                </Button> */}
           </div>
       )
     } else if (questionState===-3){
@@ -298,14 +287,14 @@ function Home({ signOut, user }) {
         </Button>
       </div>
     )
-    } else if (questionState===20 & chartDisplay===false){
+    } else if (questionState===15 & chartDisplay===false){
       return(
       <div className="App">
         <h2>終了しました!お疲れ様でした</h2>
         <p> 下記の完了ボタンを押して下さい。チャートが表示されます</p>
         <button onClick={fixResult}>完了しました</button>
       </div>
-    ) } else if (questionState===20 & chartDisplay===true)
+    ) } else if (questionState===15 & chartDisplay===true)
     return(
     <>
        <div style={{margin:"auto",width:"500px"}}>
@@ -323,7 +312,7 @@ function Home({ signOut, user }) {
         return (
           <div className="App">
             <div>
-            <div style={{ display: "flex", justifyContent: "center" , marginTop:"100px",fontSize:"20px"}}>{questions[questionState].question}</div>
+            <div style={{ textAlign:"left", lineHeight: "2",marginTop:"100px",fontSize:"20px",paddingLeft: "100px", paddingRight: "100px" }}>{questions[questionState].question}</div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
             <ChakraProvider>
                 <Flex alignItems="center" justifyContent="center" h="60vh">
@@ -340,19 +329,21 @@ function Home({ signOut, user }) {
                 </Flex>
             </ChakraProvider>
             </div>
-            <p style={{fontSize:"20px"}}>
-                選んだ答えは、<span style={{fontSize:"25px"}}>{val}</span>
-            </p>
+            <div style={{marginBottom:"50px"}}>
+              <p style={{fontSize:"20px"}}>
+                  選んだ答えは、<span style={{fontSize:"25px"}}>{val}</span>
+              </p>
+            </div>
         </div>
     </div>
 )
       } else {
-        if (questionState<19){
+        if (questionState<14){
         return(
           <>
           <h3 className="App">{questionState+2} 問目へ</h3>
           </>
-        )} else if (questionState===19){
+        )} else if (questionState===14){
           return(
           <h3 className="App">結果の表示</h3>
         )};

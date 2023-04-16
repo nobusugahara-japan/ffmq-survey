@@ -6,38 +6,40 @@
 
 /* eslint-disable */
 import * as React from "react";
-import { fetchByPath, validateField } from "./utils";
-import { getOverrideProps } from "@aws-amplify/ui-react/internal";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { getOverrideProps } from "@aws-amplify/ui-react/internal";
+import { ConditionData as ConditionData0 } from "../models";
+import { fetchByPath, validateField } from "./utils";
 import { DataStore } from "aws-amplify";
 export default function ConditionDataUpdateForm(props) {
   const {
-    id,
+    id: idProp,
     conditionData,
     onSuccess,
     onError,
     onSubmit,
-    onCancel,
     onValidate,
     onChange,
     overrides,
     ...rest
   } = props;
   const initialValues = {
-    CompanyName: undefined,
-    personId: undefined,
-    ConditionData: undefined,
+    CompanyName: "",
+    personId: "",
+    ConditionData: "",
   };
   const [CompanyName, setCompanyName] = React.useState(
     initialValues.CompanyName
   );
   const [personId, setPersonId] = React.useState(initialValues.personId);
-  const [ConditionData, setConditionData] = React.useState(
+  const [conditionData, setConditionData] = React.useState(
     initialValues.ConditionData
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    const cleanValues = { ...initialValues, ...conditionDataRecord };
+    const cleanValues = conditionDataRecord
+      ? { ...initialValues, ...conditionDataRecord }
+      : initialValues;
     setCompanyName(cleanValues.CompanyName);
     setPersonId(cleanValues.personId);
     setConditionData(cleanValues.ConditionData);
@@ -47,20 +49,28 @@ export default function ConditionDataUpdateForm(props) {
     React.useState(conditionData);
   React.useEffect(() => {
     const queryData = async () => {
-      const record = id
-        ? await DataStore.query(ConditionData, id)
+      const record = idProp
+        ? await DataStore.query(ConditionData0, idProp)
         : conditionData;
       setConditionDataRecord(record);
     };
     queryData();
-  }, [id, conditionData]);
+  }, [idProp, conditionData]);
   React.useEffect(resetStateValues, [conditionDataRecord]);
   const validations = {
     CompanyName: [],
     personId: [],
     ConditionData: [],
   };
-  const runValidationTasks = async (fieldName, value) => {
+  const runValidationTasks = async (
+    fieldName,
+    currentValue,
+    getDisplayValue
+  ) => {
+    const value =
+      currentValue && getDisplayValue
+        ? getDisplayValue(currentValue)
+        : currentValue;
     let validationResponse = validateField(value, validations[fieldName]);
     const customValidator = fetchByPath(onValidate, fieldName);
     if (customValidator) {
@@ -80,7 +90,7 @@ export default function ConditionDataUpdateForm(props) {
         let modelFields = {
           CompanyName,
           personId,
-          ConditionData,
+          ConditionData: conditionData,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -105,8 +115,13 @@ export default function ConditionDataUpdateForm(props) {
           modelFields = onSubmit(modelFields);
         }
         try {
+          Object.entries(modelFields).forEach(([key, value]) => {
+            if (typeof value === "string" && value.trim() === "") {
+              modelFields[key] = undefined;
+            }
+          });
           await DataStore.save(
-            ConditionData.copyOf(conditionDataRecord, (updated) => {
+            ConditionData0.copyOf(conditionDataRecord, (updated) => {
               Object.assign(updated, modelFields);
             })
           );
@@ -119,21 +134,21 @@ export default function ConditionDataUpdateForm(props) {
           }
         }
       }}
-      {...rest}
       {...getOverrideProps(overrides, "ConditionDataUpdateForm")}
+      {...rest}
     >
       <TextField
         label="Company name"
         isRequired={false}
         isReadOnly={false}
-        defaultValue={CompanyName}
+        value={CompanyName}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
             const modelFields = {
               CompanyName: value,
               personId,
-              ConditionData,
+              ConditionData: conditionData,
             };
             const result = onChange(modelFields);
             value = result?.CompanyName ?? value;
@@ -154,21 +169,16 @@ export default function ConditionDataUpdateForm(props) {
         isReadOnly={false}
         type="number"
         step="any"
-        defaultValue={personId}
+        value={personId}
         onChange={(e) => {
-          let value = parseInt(e.target.value);
-          if (isNaN(value)) {
-            setErrors((errors) => ({
-              ...errors,
-              personId: "Value must be a valid number",
-            }));
-            return;
-          }
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
           if (onChange) {
             const modelFields = {
               CompanyName,
               personId: value,
-              ConditionData,
+              ConditionData: conditionData,
             };
             const result = onChange(modelFields);
             value = result?.personId ?? value;
@@ -187,7 +197,7 @@ export default function ConditionDataUpdateForm(props) {
         label="Condition data"
         isRequired={false}
         isReadOnly={false}
-        defaultValue={ConditionData}
+        value={conditionData}
         onChange={(e) => {
           let { value } = e.target;
           if (onChange) {
@@ -204,7 +214,7 @@ export default function ConditionDataUpdateForm(props) {
           }
           setConditionData(value);
         }}
-        onBlur={() => runValidationTasks("ConditionData", ConditionData)}
+        onBlur={() => runValidationTasks("ConditionData", conditionData)}
         errorMessage={errors.ConditionData?.errorMessage}
         hasError={errors.ConditionData?.hasError}
         {...getOverrideProps(overrides, "ConditionData")}
@@ -216,23 +226,25 @@ export default function ConditionDataUpdateForm(props) {
         <Button
           children="Reset"
           type="reset"
-          onClick={resetStateValues}
+          onClick={(event) => {
+            event.preventDefault();
+            resetStateValues();
+          }}
+          isDisabled={!(idProp || conditionData)}
           {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
-        <Flex {...getOverrideProps(overrides, "RightAlignCTASubFlex")}>
-          <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
+        <Flex
+          gap="15px"
+          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
+        >
           <Button
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={Object.values(errors).some((e) => e?.hasError)}
+            isDisabled={
+              !(idProp || conditionData) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

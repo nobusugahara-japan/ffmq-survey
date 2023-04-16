@@ -5,9 +5,9 @@
  **************************************************************************/
 
 import * as React from "react";
-import { Ffmq2Data } from "../models";
-import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
 import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { EscapeHatchProps } from "@aws-amplify/ui-react/internal";
+import { Ffmq2Data as Ffmq2Data0 } from "../models";
 export declare type ValidationResponse = {
     hasError: boolean;
     errorMessage?: string;
@@ -23,23 +23,22 @@ export declare type Ffmq2DataUpdateFormValidationValues = {
     personId?: ValidationFunction<number>;
     Ffmq2Data?: ValidationFunction<string>;
 };
-export declare type FormProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
+export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type Ffmq2DataUpdateFormOverridesProps = {
-    Ffmq2DataUpdateFormGrid?: FormProps<GridProps>;
-    companyName?: FormProps<TextFieldProps>;
-    personId?: FormProps<TextFieldProps>;
-    Ffmq2Data?: FormProps<TextFieldProps>;
+    Ffmq2DataUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    companyName?: PrimitiveOverrideProps<TextFieldProps>;
+    personId?: PrimitiveOverrideProps<TextFieldProps>;
+    Ffmq2Data?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type Ffmq2DataUpdateFormProps = React.PropsWithChildren<{
     overrides?: Ffmq2DataUpdateFormOverridesProps | undefined | null;
 } & {
     id?: string;
-    ffmq2Data?: Ffmq2Data;
+    ffmq2Data?: Ffmq2Data0;
     onSubmit?: (fields: Ffmq2DataUpdateFormInputValues) => Ffmq2DataUpdateFormInputValues;
     onSuccess?: (fields: Ffmq2DataUpdateFormInputValues) => void;
     onError?: (fields: Ffmq2DataUpdateFormInputValues, errorMessage: string) => void;
-    onCancel?: () => void;
     onChange?: (fields: Ffmq2DataUpdateFormInputValues) => Ffmq2DataUpdateFormInputValues;
     onValidate?: Ffmq2DataUpdateFormValidationValues;
-}>;
+} & React.CSSProperties>;
 export default function Ffmq2DataUpdateForm(props: Ffmq2DataUpdateFormProps): React.ReactElement;

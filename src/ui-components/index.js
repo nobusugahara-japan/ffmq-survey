@@ -4,6 +4,7 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+export { default as studioTheme } from "./studioTheme";
 export { default as CompanyNameCreateForm } from "./CompanyNameCreateForm";
 export { default as CompanyNameUpdateForm } from "./CompanyNameUpdateForm";
 export { default as ConditionDataCreateForm } from "./ConditionDataCreateForm";
