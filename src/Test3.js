@@ -318,9 +318,10 @@ function Home({ signOut, user }) {
                   {questions[questionState].question}
                 </div>
               </div>
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "center",flexDirection: 'column', marginTop: "10px" }}>
             <ChakraProvider>
-                <Flex alignItems="center" justifyContent="center" h="25vh">
+              <Flex flexDirection="column" alignItems="center">
+                <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="5vh">
                     <Flex flexDirection="Column">
                     {answers.map((option) => (
                         <OptionToggle
@@ -332,20 +333,21 @@ function Home({ signOut, user }) {
                     ))}
                     </Flex>
                 </Flex>
+              </Flex>
             </ChakraProvider>
             </div>
-            <div style={{marginBottom:"50px"}}>
+            <div style={{marginBottom:"50px",marginTop:"10vh"}}>
               <p style={{fontSize:"20px"}}>
                   選んだ答えは、<span style={{fontSize:"25px"}}>{val}</span>
               </p>
             </div>
-        </div>
-    </div>
-)
+          </div>
+      </div>
+  )
       } else {
         if (questionState<14){
         return(
-          <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"50vh"}}>
+          <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"30vh"}}>
           <h3 style={{textAlign:"center"}}>{questionState+2} 問目へ / 全15問</h3>
           </div>
         )} else if (questionState===14){
