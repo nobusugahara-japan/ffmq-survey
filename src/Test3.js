@@ -269,6 +269,7 @@ function Home({ signOut, user }) {
         <div style={{fontSize:"14px"}}>もしやり直す場合は最後のページまで進んで最初に戻ってください。</div>
         <div style={{fontSize:"14px"}}>これはテストではなく、何が良い、悪いはありませんので、お気軽にお答えください。</div>
         {/* </div> */}
+        <h2>質問数は全部で15問です。</h2>
         <h2>では、サーベイを開始します。</h2>
         <Button
           onClick={nextPage}
@@ -312,10 +313,14 @@ function Home({ signOut, user }) {
         return (
           <div className="App">
             <div>
-            <div style={{ textAlign:"left", lineHeight: "2",marginTop:"100px",fontSize:"20px",paddingLeft: "100px", paddingRight: "100px" }}>{questions[questionState].question}</div>
+              <div style={{display:"flex",textAlign:'center',marginTop:"10vh",marginBottom:"1vh",height: '20vh', overflow:"auto"}}>
+                <div style={{ textAlign:"left",lineHeight: '2',fontSize: '20px',paddingLeft: '100px',paddingRight: '100px',maxWidth: '100%',wordWrap: 'break-word'}}>
+                  {questions[questionState].question}
+                </div>
+              </div>
             <div style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}>
             <ChakraProvider>
-                <Flex alignItems="center" justifyContent="center" h="60vh">
+                <Flex alignItems="center" justifyContent="center" h="25vh">
                     <Flex flexDirection="Column">
                     {answers.map((option) => (
                         <OptionToggle
@@ -340,9 +345,9 @@ function Home({ signOut, user }) {
       } else {
         if (questionState<14){
         return(
-          <>
-          <h3 className="App">{questionState+2} 問目へ</h3>
-          </>
+          <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"50vh"}}>
+          <h3 style={{textAlign:"center"}}>{questionState+2} 問目へ / 全15問</h3>
+          </div>
         )} else if (questionState===14){
           return(
           <h3 className="App">結果の表示</h3>

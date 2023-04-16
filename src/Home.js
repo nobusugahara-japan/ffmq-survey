@@ -58,7 +58,6 @@ useEffect(()=>{
   });
 
   const handleChange = ((e) => {
-    console.log("ここが知りたい", e.target.value)
     setAnswerList([...answerList, e.target.value]);
     setVal(e.target.value)
     answerToScore(e.target.value)
@@ -130,7 +129,6 @@ useEffect(()=>{
   console.log("last FFMQ Score", lastAnswerList)
 
   const fixResult = () =>{
-    console.log("ここで確認")
     API.graphql(graphqlOperation(createFfmq2Data, 
       {input:{personId:personId, Ffmq2Data:answerList}}))
       .then(()=>{console.log("送信成功")})
