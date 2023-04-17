@@ -311,9 +311,9 @@ function Home({ signOut, user }) {
       )
     else if (transition===true){
         return (
-          <div className="App">
+          <div>
       <ChakraProvider>
-        <VStack spacing={8} alignItems="center">
+        <VStack spacing={20} alignItems="center">
           <Stack>
             <Text
               style={{
@@ -324,14 +324,14 @@ function Home({ signOut, user }) {
                 paddingRight: "100px",
                 maxWidth: "100%",
                 wordWrap: "break-word",
-                marginTop:"50px"
+                marginTop:"50px",
               }}
             >
               {questions[questionState].question}
             </Text>
           </Stack>
-          <Stack>
-            <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="50px">
+          <Box>
+            <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="20px" >
               <Flex flexDirection="Column">
                 {answers.map((option) => (
                   <OptionToggle
@@ -343,12 +343,12 @@ function Home({ signOut, user }) {
                 ))}
               </Flex>
             </Flex>
-          </Stack>
-          <Stack marginTop="50px">
+          </Box>
+          <Box marginTop="50px">
             <Text fontSize="20px" marginTop="50px" marginBottom="50px">
                 選んだ答えは、<Text style={{ fontSize: "25px" }}>{val}</Text>
             </Text>
-          </Stack>
+          </Box>
         </VStack>
       </ChakraProvider>
     </div>
