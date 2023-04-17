@@ -10,7 +10,7 @@ import Attribute from './Attribute';
 import Conditions from "./Conditions";
 import {listCompanyNames} from "./graphql/queries";
 import OptionToggle from "./OptionToggle"; // ToggleOptionコンポーネントをインポート
-import { ChakraProvider,Flex, Button,Box, FormControl, FormLabel, Input, Text} from "@chakra-ui/react";
+import { ChakraProvider,Flex, Button,Box, FormControl, FormLabel, Input, Text,VStack,Stack} from "@chakra-ui/react";
 
 Amplify.configure(aws_exports)
 
@@ -312,37 +312,78 @@ function Home({ signOut, user }) {
     else if (transition===true){
         return (
           <div className="App">
-            <div>
-              <div style={{display:"flex",textAlign:'center',marginTop:"10vh",marginBottom:"1vh",height: '20vh', overflow:"auto"}}>
-                <div style={{ textAlign:"left",lineHeight: '2',fontSize: '20px',paddingLeft: '100px',paddingRight: '100px',maxWidth: '100%',wordWrap: 'break-word'}}>
-                  {questions[questionState].question}
-                </div>
-              </div>
-            <div style={{ display: "flex", justifyContent: "center",flexDirection: 'column', marginTop: "10px" }}>
-            <ChakraProvider>
-              <Flex flexDirection="column" alignItems="center">
-                <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="5vh">
-                    <Flex flexDirection="Column">
-                    {answers.map((option) => (
-                        <OptionToggle
-                        key={option.id}
-                        option={option}
-                        isSelected={option.id === selectedOption.id}
-                        onClick={() => handleOptionSelect(option)}
-                        />
-                    ))}
-                    </Flex>
-                </Flex>
+      <ChakraProvider>
+        <VStack spacing={8} alignItems="center">
+          <Stack>
+            <Text
+              style={{
+                textAlign: "left",
+                lineHeight: "2",
+                fontSize: "20px",
+                paddingLeft: "100px",
+                paddingRight: "100px",
+                maxWidth: "100%",
+                wordWrap: "break-word",
+                marginTop:"50px"
+              }}
+            >
+              {questions[questionState].question}
+            </Text>
+          </Stack>
+          <Stack>
+            <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="50px">
+              <Flex flexDirection="Column">
+                {answers.map((option) => (
+                  <OptionToggle
+                    key={option.id}
+                    option={option}
+                    isSelected={option.id === selectedOption.id}
+                    onClick={() => handleOptionSelect(option)}
+                  />
+                ))}
               </Flex>
-            </ChakraProvider>
-            </div>
-            <div style={{marginBottom:"50px",marginTop:"10vh"}}>
-              <p style={{fontSize:"20px"}}>
-                  選んだ答えは、<span style={{fontSize:"25px"}}>{val}</span>
-              </p>
-            </div>
-          </div>
-      </div>
+            </Flex>
+          </Stack>
+          <Stack marginTop="50px">
+            <Text fontSize="20px" marginTop="50px" marginBottom="50px">
+                選んだ答えは、<Text style={{ fontSize: "25px" }}>{val}</Text>
+            </Text>
+          </Stack>
+        </VStack>
+      </ChakraProvider>
+    </div>
+      //     <div className="App">
+      //       <div>
+      //         <div style={{display:"flex",textAlign:'center',marginTop:"10vh",marginBottom:"1vh",height: '20vh', overflow:"auto"}}>
+      //           <div style={{ textAlign:"left",lineHeight: '2',fontSize: '20px',paddingLeft: '100px',paddingRight: '100px',maxWidth: '100%',wordWrap: 'break-word'}}>
+      //             {questions[questionState].question}
+      //           </div>
+      //         </div>
+      //       <div style={{ display: "flex", justifyContent: "center",flexDirection: 'column', marginTop: "10px" }}>
+      //       <ChakraProvider>
+      //         <Flex flexDirection="column" alignItems="center">
+      //           <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="5vh">
+      //               <Flex flexDirection="Column">
+      //               {answers.map((option) => (
+      //                   <OptionToggle
+      //                   key={option.id}
+      //                   option={option}
+      //                   isSelected={option.id === selectedOption.id}
+      //                   onClick={() => handleOptionSelect(option)}
+      //                   />
+      //               ))}
+      //               </Flex>
+      //           </Flex>
+      //         </Flex>
+      //       </ChakraProvider>
+      //       </div>
+      //       <div style={{marginBottom:"50px",marginTop:"10vh"}}>
+      //         <p style={{fontSize:"20px"}}>
+      //             選んだ答えは、<span style={{fontSize:"25px"}}>{val}</span>
+      //         </p>
+      //       </div>
+      //     </div>
+      // </div>
   )
       } else {
         if (questionState<14){
