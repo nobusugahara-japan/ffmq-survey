@@ -87,8 +87,8 @@ const RaderChart = (props) => {
           {
             label: '今回',
             data: thisTimeScore,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
+            backgroundColor: 'rgba(35,166,186,0.2)',
+            borderColor: 'rgba(35,166,186,1)',
             borderWidth: 1,
           },
         ],
