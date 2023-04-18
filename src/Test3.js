@@ -352,38 +352,6 @@ function Home({ signOut, user }) {
         </VStack>
       </ChakraProvider>
     </div>
-      //     <div className="App">
-      //       <div>
-      //         <div style={{display:"flex",textAlign:'center',marginTop:"10vh",marginBottom:"1vh",height: '20vh', overflow:"auto"}}>
-      //           <div style={{ textAlign:"left",lineHeight: '2',fontSize: '20px',paddingLeft: '100px',paddingRight: '100px',maxWidth: '100%',wordWrap: 'break-word'}}>
-      //             {questions[questionState].question}
-      //           </div>
-      //         </div>
-      //       <div style={{ display: "flex", justifyContent: "center",flexDirection: 'column', marginTop: "10px" }}>
-      //       <ChakraProvider>
-      //         <Flex flexDirection="column" alignItems="center">
-      //           <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="5vh">
-      //               <Flex flexDirection="Column">
-      //               {answers.map((option) => (
-      //                   <OptionToggle
-      //                   key={option.id}
-      //                   option={option}
-      //                   isSelected={option.id === selectedOption.id}
-      //                   onClick={() => handleOptionSelect(option)}
-      //                   />
-      //               ))}
-      //               </Flex>
-      //           </Flex>
-      //         </Flex>
-      //       </ChakraProvider>
-      //       </div>
-      //       <div style={{marginBottom:"50px",marginTop:"10vh"}}>
-      //         <p style={{fontSize:"20px"}}>
-      //             選んだ答えは、<span style={{fontSize:"25px"}}>{val}</span>
-      //         </p>
-      //       </div>
-      //     </div>
-      // </div>
   )
       } else {
         if (questionState<14){

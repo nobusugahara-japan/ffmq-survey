@@ -1,6 +1,6 @@
 import React from 'react';
 import { Amplify } from 'aws-amplify';
-import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Test3 from './Test3';
 import Admin from './Admin';
 import './App.css';
@@ -11,23 +11,23 @@ import './App.css';
 function App() {
   return (
     <BrowserRouter>
-      <header className="header">
-      <img src={`${process.env.PUBLIC_URL}/image/LayLogo.png`} alt="Logo" className="logo" />
-      </header>
+    <header className="header">
+        <img src={`${process.env.PUBLIC_URL}/image/LayLogo.png`} alt="Logo" className="logo" />
+        <div className="title">Lay Mindfulness Survey</div>
+    </header>
       <Switch>
         <Route exact path="/" component={Test3} />
         <Route path="/admin" component={Admin} />
       </Switch>
       <footer className="footer">
         <div className="footer-links">
-          <Link to="/" className="footer-link small-text">はじめに戻る</Link>
+          <a href="./" className="footer-link small-text">はじめに戻る</a>
         </div>
         <span className="copyright">Copyright ©2023 株式会社Lay. All Rights Reserved.</span>
       </footer>
     </BrowserRouter>
   );
 }
-
 export default App;
 
 

@@ -3,10 +3,9 @@
 }
 
 .header {
-  background-color: white;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 10px;
 }
 
 .logo {
@@ -14,6 +13,7 @@
   height: 45px;
   left: 20px;
   top:20px;
+  margin-top:10px;
 }
 
 @media (max-width: 767px) {
@@ -75,6 +75,22 @@
   padding-bottom: 60px; /* フッターの高さと同じかそれ以上の値 */
 }
 
+.title 
+{
+  font-size: 18px;
+  margin-right: 20px;
+  position: relative;
+  top: 15px; /* ここで下方向にオフセットする量を調整してください */
+}
+
+@media (max-width: 767px) {
+  .title {
+  font-size: 18px;
+  margin-right: 20px;
+  position: relative;
+  top: 25px; /* ここで下方向にオフセットする量を調整してください */
+  }
+}
 /* 
 .footer {
   background-color: #23A6BA;
