@@ -55,7 +55,7 @@ const Conditions= (props) => {
       const mentalConditionOptions = [
         { value: "すぐに起こったりイライラする", label: "すぐに起こったりイライラする", onClick: handleMentalConditionClick },
         { value: "怒りやイライラが起こるが外に表すことはない", label: "怒りやイライラが起こるが外に表すことはない", onClick: handleMentalConditionClick },
-        { value: "ほどんと怒りやイライラを感じない", label: "ほどんと怒りやイライラを感じない", onClick: handleMentalConditionClick },
+        { value: "ほどんと怒りやイライラを感じない", label: "ほとんど怒りやイライラを感じない", onClick: handleMentalConditionClick },
       ];
 
       const focusConditionOptions = [
