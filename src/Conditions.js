@@ -1,7 +1,7 @@
 import {API, graphqlOperation} from "aws-amplify";
 import {createConditionData} from "./graphql/mutations";
 import { Box, Flex, Text,VStack, useToken,Button } from "@chakra-ui/react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 const Conditions= (props) => {
 
@@ -39,6 +39,10 @@ const Conditions= (props) => {
       const handleRelationshipClick = (value) => {
         setSelectedRelationship(value);
       };
+
+      useEffect(() => {
+          window.scrollTo(0, 0);
+      }, []); 
 
       const sholderPainOptions = [
         { value: "ひどく痛む", label: "ひどく痛む", onClick: handleSholderConditionClick },
@@ -120,7 +124,7 @@ const Conditions= (props) => {
 
       return (
         <div className="App content">
-          <Text fontSize="25px">1. 肩こり・偏頭痛</Text>
+          <Text fontSize="25px" marginTop="100px">1. 肩こり・偏頭痛</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
           {sholderPainOptions.map((option) => (
             <CustomOption

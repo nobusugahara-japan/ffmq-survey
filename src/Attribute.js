@@ -1,5 +1,5 @@
 import { Box, Flex, Text,VStack, useToken,Button } from "@chakra-ui/react";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {API, graphqlOperation} from "aws-amplify";
 import { createAttributeData } from "./graphql/mutations";
 import "./App.css";
@@ -16,6 +16,10 @@ const Attribute = (props) => {
             .then(()=>{console.log("送信成功")})
         props.setQuestionState(props.questionState+1);
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []); 
 
     const handleJobClick = (value) => {
         setSelectedJob(value);
@@ -102,7 +106,7 @@ const Attribute = (props) => {
 
     return (
       <VStack className="App content" spacing={50} paddingBottom={100}>  
-          <Text fontSize="20px">職種</Text>
+          <Text fontSize="20px" marginTop="100px">職種</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
           {jobOptions.map((option) => (
             <CustomOption
@@ -139,7 +143,6 @@ const Attribute = (props) => {
                 name="nextButton" 
                 onClick={sendData}
                 size="lg"
-                // fontWeight="bold"
                 fontSize="20px"
                 paddingTop="10px"
                 paddingRight="15px"
@@ -151,8 +154,6 @@ const Attribute = (props) => {
                 _active={{ bg: "#1E8A9D" }}
                 marginTop={"30px"}
                 marginBottom={"30px"}
-                // height="30px"
-                // width="100px"
                 borderRadius="0"
                 border="none">
                 次へ

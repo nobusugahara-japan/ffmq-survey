@@ -11,6 +11,7 @@ import Conditions from "./Conditions";
 import {listCompanyNames} from "./graphql/queries";
 import OptionToggle from "./OptionToggle"; // ToggleOptionコンポーネントをインポート
 import { ChakraProvider,Flex, Button,Box, FormControl, FormLabel, Input, Text,VStack,Stack} from "@chakra-ui/react";
+import React from "react";
 
 Amplify.configure(aws_exports)
 
@@ -35,6 +36,13 @@ function Home({ signOut, user }) {
   const [lastAnswerList, setLastAnswerList] = useState([])
   const [conditionData, setConditionData] = useState(["選択なし","選択なし","選択なし"])
   const [customerName, setCustomerName] = useState("表示されていない場合、管理者にご連絡ください")
+
+  React.useEffect(() => {
+    // フック内で条件をチェック
+    if (questionState === -1) {
+      window.scrollTo(0, 0);
+    }
+  }, [questionState]); 
 
   const getCustomerData = async () => {
     const values = await API.graphql(graphqlOperation(listCompanyNames))
@@ -149,15 +157,15 @@ function Home({ signOut, user }) {
     <ChakraProvider>
       <div className="App">
         <Box as="form">
-        <Flex marginTop="25px" alignItems="center" justifyContent="center">
+        <Flex marginTop="50px" alignItems="center" justifyContent="center">
           <Text fontSize="16px">
             所属組織名 : 
           </Text>
-          <Text fontSize="25px" fontWeight="bold" marginLeft="10px" color="#23A6BA">
+          <Text fontSize="25px"  marginLeft="10px" color="#23A6BA">
             {customerName}
           </Text>
         </Flex>
-            <Text fontSize="25px" marginTop="125px">個人ID（4桁数字）の入力をお願いします</Text>
+            <Text fontSize="25px" marginTop="125px" paddingLeft="20px" paddingRight="20px">個人ID（4桁数字）の入力をお願いします</Text>
                 <FormControl>
                     <FormLabel htmlFor="personIdInput" srOnly>個人ID入力</FormLabel>
                     <Input
@@ -177,7 +185,6 @@ function Home({ signOut, user }) {
                 </FormControl>
             <Text fontSize="16px">入力した個人ID : <span style={{color:"#23A6BA",fontSize:"20px"}}>{personId}</span></Text>
         </Box>
-        {/* <Text fontSize="xl" fontWeight="bold" marginTop="100px">確認ができたら下記のボタンを押して次へ進んでください</Text> */}
         <Button 
             onClick={nextPage} 
             name="personIdNext"
@@ -188,7 +195,8 @@ function Home({ signOut, user }) {
             bg="#23A6BA" // 色コードで背景色を指定
             _hover={{ bg: "#2BB1C5" }} // 色コードでホバー時の背景色を指定
             _active={{ bg: "#1E8A9D" }} // 色コードでアクティブ時の背景色を指定
-            marginTop="200px"
+            marginTop="130px"
+            marginBottom="100px"
             borderRadius="0"
              >次へ</Button>
       </div>
@@ -198,7 +206,7 @@ function Home({ signOut, user }) {
       return(
         <div className='App'>
             <Box>
-              <Text fontSize="25px" marginTop="200px">
+              <Text fontSize="25px" marginTop="200px" paddingLeft="20px" paddingRight="20px">
                 1回目ですか、それとも2回目以降でしょうか？
               </Text>
             </Box>
@@ -209,7 +217,7 @@ function Home({ signOut, user }) {
                 size="lg"
                 marginRight="20px"
                 marginTop="30px"
-                fontSize="25px"
+                fontSize="20px"
                 color="white"
                 bg="#23A6BA"
                 _hover={{ bg: "#2BB1C5" }}
@@ -229,7 +237,7 @@ function Home({ signOut, user }) {
                   onClick={secondTime}
                   marginLeft="50px"
                   marginTop="30px"
-                  fontSize="25px"
+                  fontSize="20px"
                   color="white"
                   bg="#23A6BA"
                   _hover={{ bg: "#2BB1C5" }}
@@ -272,15 +280,13 @@ function Home({ signOut, user }) {
     } else if (questionState===-1){
       return(
       <div className='App'>
-        <Text fontSize="25px" marginBottom="100px" marginTop="100px">マインドフルネスの程度測定を始めます</Text>
-        <Text fontSize="15px">下記注意事項です。始める前に目を通してください</Text>
-        <Text fontSize="15px">質問数は全部で15問です。</Text>
-        {/* <div style={{textAlign:"center"}}> */}
-        <Text fontSize="15px">次ページから始まる質問に、あまり考えることなく直感的にお答えください。</Text>
-        <Text fontSize="15px">選択すると1秒後に自動的にページが推移します。</Text>
-        <Text fontSize="15px">もしやり直す場合は最後のページまで進んで最初に戻ってください。</Text>
-        <Text fontSize="15px" marginBottom="100px">これはテストではなく、何が良い、悪いはありませんので、お気軽にお答えください。</Text>
-        {/* </div> */}
+        <Text fontSize="25px" marginBottom="50px" marginTop="100px" paddingLeft="20px" paddingRight="20px">マインドフルネスの程度測定を始めます</Text>
+        <Text fontSize="15px" paddingLeft="20px" paddingRight="20px">下記注意事項です。始める前に目を通してください</Text>
+        <Text fontSize="15px" paddingLeft="20px" paddingRight="20px">質問数は全部で15問です。</Text>
+        <Text fontSize="15px" paddingLeft="20px" paddingRight="20px">次ページから始まる質問に、あまり考えることなく直感的にお答えください。</Text>
+        <Text fontSize="15px" paddingLeft="20px" paddingRight="20px">選択すると1秒後に自動的にページが推移します。</Text>
+        <Text fontSize="15px" paddingLeft="20px" paddingRight="20px">もしやり直す場合は最後のページまで進んで最初に戻ってください。</Text>
+        <Text fontSize="15px" marginBottom="50px" paddingLeft="20px" paddingRight="20px">これはテストではなく、何が良い、悪いはありませんので、お気軽にお答えください。</Text>
         <Button
           onClick={nextPage}
           size="lg"
@@ -293,8 +299,8 @@ function Home({ signOut, user }) {
           bg="#23A6BA"
           _hover={{ bg: "#2BB1C5" }}
           _active={{ bg: "#1E8A9D" }}
-          marginTop={"30px"}
-          marginBottom={"30px"}
+          mt="5px"
+          mb="100px"
           borderRadius="0"
           border="none"
           >開始
@@ -323,12 +329,11 @@ function Home({ signOut, user }) {
           border="none"
           >結果を見る
         </Button>
-        {/* <button onClick={fixResult}>結果を見る</button> */}
       </div>
     ) } else if (questionState===15 & chartDisplay===true)
     return(
     <>
-       <div style={{margin:"auto",width:"500px"}}>
+       <div style={{margin:"auto",marginTop:"50px",width:"400px"}}>
          <RaderChart 
             answerListChart={[answerList, lastAnswerList]}
             firstSecondTime = {firstSecondTime}
@@ -349,20 +354,20 @@ function Home({ signOut, user }) {
               style={{
                 textAlign: "left",
                 lineHeight: "2",
-                fontSize: "25px",
+                fontSize: "20px",
                 paddingLeft: "100px",
                 paddingRight: "100px",
                 maxWidth: "100%",
                 wordWrap: "break-word",
                 marginTop:"50px",
-                marginBottom:"100px"
+                marginBottom:"20px"
               }}
             >
               {questions[questionState].question}
             </Text>
           </Stack>
           <Box>
-            <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="20px" marginBottom="100px">
+            <Flex alignItems="center" justifyContent="center" h="25vh" marginTop="10px" marginBottom="100px">
               <Flex flexDirection="Column">
                 {answers.map((option) => (
                   <OptionToggle
@@ -384,13 +389,8 @@ function Home({ signOut, user }) {
         if (questionState<=14){
         return(
           <div style={{display:"flex", justifyContent:"center", alignItems:"center", height:"30vh"}}>
-          {/* <h3 style={{textAlign:"center"}}>{questionState+2} 問目へ / 全15問</h3> */}
           </div>
         )} 
-        // else if (questionState===14){
-        //   return(
-        //   <h3 className="App">結果の表示</h3>
-        // )};
       }
   }
 // export default withAuthenticator(App);

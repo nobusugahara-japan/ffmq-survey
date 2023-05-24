@@ -78,9 +78,11 @@
 .title 
 {
   font-size: 18px;
+  color:#23A6BA;
   margin-right: 20px;
   position: relative;
   top: 15px; /* ここで下方向にオフセットする量を調整してください */
+  font-family: 'Courgette', cursive;
 }
 
 @media (max-width: 767px) {
