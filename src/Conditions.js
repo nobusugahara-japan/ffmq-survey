@@ -82,7 +82,7 @@ const Conditions= (props) => {
             cursor="pointer"
             alignItems="center"
             borderRadius="lg"
-            boxShadow="0 5px 5px rgba(0, 0, 0, 0.2)"
+            // boxShadow="0 5px 5px rgba(0, 0, 0, 0.2)"
             p={5}
           >
             <Flex alignItems="center">
@@ -108,7 +108,7 @@ const Conditions= (props) => {
               />
             )}
             </Box>
-              <Box whiteSpace="nowrap">
+              <Box whiteSpace="nowrap" marginLeft="10px">
                 <Text fontSize="md" fontFamily="Arial, sans-serif">
                   {option.label}
                 </Text>
@@ -120,7 +120,7 @@ const Conditions= (props) => {
 
       return (
         <div className="App content">
-          <Text>1. 肩こり・偏頭痛</Text>
+          <Text fontSize="25px">1. 肩こり・偏頭痛</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
           {sholderPainOptions.map((option) => (
             <CustomOption
@@ -131,7 +131,7 @@ const Conditions= (props) => {
             />
           ))}
           </VStack>
-          <Text>2.睡眠の状態</Text>
+          <Text fontSize="25px">2.睡眠の状態</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
             {sleepConditionOptions.map((option) => (
                 <CustomOption
@@ -142,7 +142,7 @@ const Conditions= (props) => {
                 />
             ))}
             </VStack>
-            <Text>3.こころの状態</Text>
+            <Text fontSize="25px">3.こころの状態</Text>
             <VStack justifyContent={"center"} flexWrap={"wrap"}>
             {mentalConditionOptions.map((option) => (
                 <CustomOption
@@ -153,7 +153,7 @@ const Conditions= (props) => {
                 />
             ))}
             </VStack>
-            <Text>4.集中力の状態</Text>
+            <Text fontSize="25px">4.集中力の状態</Text>
             <VStack justifyContent={"center"} flexWrap={"wrap"}>
             {focusConditionOptions.map((option) => (
                 <CustomOption
@@ -164,7 +164,7 @@ const Conditions= (props) => {
                 />
             ))}
             </VStack>
-            <Text>5.人間関係の状態</Text>
+            <Text fontSize="25px">5.人間関係の状態</Text>
             <VStack justifyContent={"center"} flexWrap={"wrap"}>
             {relationshipOptions.map((option) => (
                 <CustomOption
@@ -175,21 +175,23 @@ const Conditions= (props) => {
                 />
             ))}
             </VStack>
-            <Text as="h3">入力が完了したら、下記のボタンを押して次へ進んでください</Text>
             <Button 
                 name="nextButton" 
                 onClick={sendData}
                 size="lg"
-                fontWeight="bold"
-                fontSize="lg"
+                fontSize="20px"
+                paddingTop="10px"
+                paddingRight="15px"
+                paddingBottom="10px"
+                paddingLeft="15px"
                 color="white"
                 bg="#23A6BA"
                 _hover={{ bg: "#2BB1C5" }}
                 _active={{ bg: "#1E8A9D" }}
-                marginTop="16px"
-                height="30px"
-                width="100px"
-                borderRadius="10px">
+                marginTop={"30px"}
+                marginBottom={"30px"}
+                borderRadius="0"
+                border="none">
                 次へ
             </Button>
         </div>

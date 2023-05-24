@@ -63,7 +63,7 @@ const Attribute = (props) => {
             cursor="pointer"
             alignItems="center"
             borderRadius="lg"
-            boxShadow="0 5px 5px rgba(0, 0, 0, 0.2)"
+            // boxShadow="0 5px 5px rgba(0, 0, 0, 0.2)"
             p={5}
           >
             <Flex alignItems="center">
@@ -89,7 +89,7 @@ const Attribute = (props) => {
               />
             )}
             </Box>
-              <Box whiteSpace="nowrap">
+              <Box whiteSpace="nowrap" marginLeft="10px">
                 <Text fontSize="md" fontFamily="Arial, sans-serif">
                   {option.label}
                 </Text>
@@ -101,8 +101,8 @@ const Attribute = (props) => {
       
 
     return (
-        <div className="App content">
-          <Text>職種</Text>
+      <VStack className="App content" spacing={50} paddingBottom={100}>  
+          <Text fontSize="20px">職種</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
           {jobOptions.map((option) => (
             <CustomOption
@@ -113,7 +113,7 @@ const Attribute = (props) => {
             />
           ))}
           </VStack>
-          <Text>年齢（年代）</Text>
+          <Text fontSize="20px" marginTop="100px">年代</Text>
           <VStack justifyContent={"center"} flexWrap={"wrap"}>
             {ageOptions.map((option) => (
                 <CustomOption
@@ -124,7 +124,7 @@ const Attribute = (props) => {
                 />
             ))}
             </VStack>
-            <Text>性別</Text>
+            <Text fontSize="20px" marginTop="100px">性別</Text>
             <VStack justifyContent={"center"} flexWrap={"wrap"}>
             {genderOptions.map((option) => (
                 <CustomOption
@@ -135,24 +135,29 @@ const Attribute = (props) => {
                 />
             ))}
             </VStack>
-            <Text as="h3">入力が完了したら、下記のボタンを押して次へ進んでください</Text>
             <Button 
                 name="nextButton" 
                 onClick={sendData}
                 size="lg"
-                fontWeight="bold"
-                fontSize="lg"
+                // fontWeight="bold"
+                fontSize="20px"
+                paddingTop="10px"
+                paddingRight="15px"
+                paddingBottom="10px"
+                paddingLeft="15px"
                 color="white"
                 bg="#23A6BA"
                 _hover={{ bg: "#2BB1C5" }}
                 _active={{ bg: "#1E8A9D" }}
-                marginTop="16px"
-                height="30px"
-                width="100px"
-                borderRadius="10px">
+                marginTop={"30px"}
+                marginBottom={"30px"}
+                // height="30px"
+                // width="100px"
+                borderRadius="0"
+                border="none">
                 次へ
             </Button>
-        </div>
+        </VStack>
         );
     }
 export default Attribute;

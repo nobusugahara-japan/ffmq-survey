@@ -17,7 +17,7 @@ function OptionToggle({ option, isSelected, onClick }) {
         cursor="pointer"
         alignItems="center"
         borderRadius="lg"
-        boxShadow="0 5px 5px rgba(0, 0, 0, 0.2)"
+        // boxShadow="0 5px 5px rgba(0, 0, 0, 0.2)"
         p={5}
       >
         <Flex alignItems="center">
