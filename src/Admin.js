@@ -14,8 +14,9 @@ const Admin =() => {
     const getOrgData = async () => {
         const values = await API.graphql(graphqlOperation(listCompanyNames))
         console.log("admin CompData", values);
-        const newOrgName = values.data.listCompanyNames.items[0].companyName
-        setDbOrgName(newOrgName)
+        const sortedItems = values.data.listCompanyNames.items.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+        const newOrgName = sortedItems[0].companyName;
+        setDbOrgName(newOrgName);
     }
 
     const sendOrgData=()=>{

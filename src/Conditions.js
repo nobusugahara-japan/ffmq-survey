@@ -125,7 +125,7 @@ const Conditions= (props) => {
       return (
         <div className="App content">
           <Text fontSize="25px" marginTop="100px">1. 肩こり・偏頭痛</Text>
-          <VStack justifyContent={"center"} flexWrap={"wrap"}>
+          <VStack justifyContent={"center"} flexWrap={"wrap"} paddingLeft="20px">
           {sholderPainOptions.map((option) => (
             <CustomOption
               key={option.value}
@@ -136,7 +136,7 @@ const Conditions= (props) => {
           ))}
           </VStack>
           <Text fontSize="25px">2.睡眠の状態</Text>
-          <VStack justifyContent={"center"} flexWrap={"wrap"}>
+          <VStack justifyContent={"center"} flexWrap={"wrap"} paddingLeft="20px">
             {sleepConditionOptions.map((option) => (
                 <CustomOption
                 key={option.value}
@@ -147,7 +147,7 @@ const Conditions= (props) => {
             ))}
             </VStack>
             <Text fontSize="25px">3.こころの状態</Text>
-            <VStack justifyContent={"center"} flexWrap={"wrap"}>
+            <VStack justifyContent={"center"} flexWrap={"wrap"} paddingLeft="20px">
             {mentalConditionOptions.map((option) => (
                 <CustomOption
                 key={option.value}
@@ -158,7 +158,7 @@ const Conditions= (props) => {
             ))}
             </VStack>
             <Text fontSize="25px">4.集中力の状態</Text>
-            <VStack justifyContent={"center"} flexWrap={"wrap"}>
+            <VStack justifyContent={"center"} flexWrap={"wrap"} paddingLeft="20px">
             {focusConditionOptions.map((option) => (
                 <CustomOption
                 key={option.value}
@@ -169,7 +169,7 @@ const Conditions= (props) => {
             ))}
             </VStack>
             <Text fontSize="25px">5.人間関係の状態</Text>
-            <VStack justifyContent={"center"} flexWrap={"wrap"}>
+            <VStack justifyContent={"center"} flexWrap={"wrap"} paddingLeft="20px">
             {relationshipOptions.map((option) => (
                 <CustomOption
                 key={option.value}
